@@ -1,0 +1,7 @@
+*.log
+*.zip
+.env
+.env.*
+!.env.example
+connections*.json
+local/

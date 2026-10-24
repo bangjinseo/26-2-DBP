@@ -1,0 +1,143 @@
+
+Session altered.
+
+
+STUDENT_ID
+----------
+STUDENT_NAME
+--------------------------------------------------------------------------------
+TOTAL_MILEAGE
+-------------
+	 5
+가상학생5
+	    0
+
+
+
+PL/SQL procedure successfully completed.
+
+
+STUDENT_ID
+----------
+STUDENT_NAME
+--------------------------------------------------------------------------------
+TOTAL_MILEAGE
+-------------
+	 5
+가상학생5
+	  100
+
+
+
+PL/SQL procedure successfully completed.
+
+
+STUDENT_ID
+----------
+STUDENT_NAME
+--------------------------------------------------------------------------------
+TOTAL_MILEAGE
+-------------
+	 5
+가상학생5
+	    0
+
+
+
+Rollback complete.
+
+
+PROJECT_ID PROJECT_BUDGET_ID
+---------- -----------------
+ITEM_CODE
+--------------------------------------------------------------------------------
+ITEM_NAME
+--------------------------------------------------------------------------------
+INITIAL_AMOUNT CURRENT_AMOUNT SPENDING_LIMIT APPROVED_EXPENSE	 BALANCE
+-------------- -------------- -------------- ---------------- ----------
+AVAILABLE_LIMIT EXECUTION_RATE
+--------------- --------------
+	 1		   4
+ACTIVITY
+연구활동비
+
+PROJECT_ID PROJECT_BUDGET_ID
+---------- -----------------
+ITEM_CODE
+--------------------------------------------------------------------------------
+ITEM_NAME
+--------------------------------------------------------------------------------
+INITIAL_AMOUNT CURRENT_AMOUNT SPENDING_LIMIT APPROVED_EXPENSE	 BALANCE
+-------------- -------------- -------------- ---------------- ----------
+AVAILABLE_LIMIT EXECUTION_RATE
+--------------- --------------
+       1000000	      1100000	      800000	       100000	 1000000
+	 700000 	  9.09
+
+
+
+PL/SQL procedure successfully completed.
+
+
+PROJECT_ID PROJECT_BUDGET_ID
+---------- -----------------
+ITEM_CODE
+--------------------------------------------------------------------------------
+ITEM_NAME
+--------------------------------------------------------------------------------
+INITIAL_AMOUNT CURRENT_AMOUNT SPENDING_LIMIT APPROVED_EXPENSE	 BALANCE
+-------------- -------------- -------------- ---------------- ----------
+AVAILABLE_LIMIT EXECUTION_RATE
+--------------- --------------
+	 1		   4
+ACTIVITY
+연구활동비
+
+PROJECT_ID PROJECT_BUDGET_ID
+---------- -----------------
+ITEM_CODE
+--------------------------------------------------------------------------------
+ITEM_NAME
+--------------------------------------------------------------------------------
+INITIAL_AMOUNT CURRENT_AMOUNT SPENDING_LIMIT APPROVED_EXPENSE	 BALANCE
+-------------- -------------- -------------- ---------------- ----------
+AVAILABLE_LIMIT EXECUTION_RATE
+--------------- --------------
+       1000000	      1100000	      800000	       150000	  950000
+	 650000 	 13.64
+
+
+
+PL/SQL procedure successfully completed.
+
+
+PROJECT_ID PROJECT_BUDGET_ID
+---------- -----------------
+ITEM_CODE
+--------------------------------------------------------------------------------
+ITEM_NAME
+--------------------------------------------------------------------------------
+INITIAL_AMOUNT CURRENT_AMOUNT SPENDING_LIMIT APPROVED_EXPENSE	 BALANCE
+-------------- -------------- -------------- ---------------- ----------
+AVAILABLE_LIMIT EXECUTION_RATE
+--------------- --------------
+	 1		   4
+ACTIVITY
+연구활동비
+
+PROJECT_ID PROJECT_BUDGET_ID
+---------- -----------------
+ITEM_CODE
+--------------------------------------------------------------------------------
+ITEM_NAME
+--------------------------------------------------------------------------------
+INITIAL_AMOUNT CURRENT_AMOUNT SPENDING_LIMIT APPROVED_EXPENSE	 BALANCE
+-------------- -------------- -------------- ---------------- ----------
+AVAILABLE_LIMIT EXECUTION_RATE
+--------------- --------------
+       1000000	      1100000	      800000	       100000	 1000000
+	 700000 	  9.09
+
+
+
+Rollback complete.
