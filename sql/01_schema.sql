@@ -270,3 +270,267 @@ END pbl_workflow;
 /
 -- 패키지는 COMMIT하지 않는다. 호출자가 성공 시 COMMIT, 실패 시 ROLLBACK한다.
 -- 역할 검증은 전달된 actor ID 기준이다. 실제 로그인 신원 인증 및 직접 DML 차단은 별도 통합 과제.
+
+-- BEGIN STUDENT_AND_TOPCIT
+CREATE OR REPLACE VIEW v_student_profile AS
+SELECT s.student_id,s.student_no,s.student_name,u.user_id,u.login_id,
+ c.college_id,c.college_name,d.department_id,d.department_name,d.track_type,d.campus,
+ s.grade,sc.status_code,sc.status_name,ac.admission_type_code,ac.admission_type_name,
+ s.admission_date,s.mobile_phone,s.sms_yn,s.email
+FROM student s
+JOIN user_account u ON u.user_id=s.user_id
+JOIN department d ON d.department_id=s.department_id
+JOIN college c ON c.college_id=d.college_id
+JOIN student_status_code sc ON sc.status_code=s.status_code
+JOIN admission_type_code ac ON ac.admission_type_code=s.admission_type_code;
+
+CREATE OR REPLACE VIEW v_topcit_score_change AS
+SELECT score_id,student_id,round_id,round_name,exam_date,total_score,
+ LAG(total_score) OVER(PARTITION BY student_id ORDER BY exam_date,round_id) previous_score,
+ total_score-LAG(total_score) OVER(PARTITION BY student_id ORDER BY exam_date,round_id) score_change
+FROM (
+ SELECT ts.score_id,ts.student_id,ts.round_id,tr.round_name,tr.exam_date,ts.total_score
+ FROM topcit_score ts JOIN topcit_round tr ON tr.round_id=ts.round_id
+);
+
+CREATE OR REPLACE PACKAGE student_topcit_workflow AS
+ PROCEDURE request_student_change(
+  p_actor NUMBER,p_student NUMBER,p_mobile_phone VARCHAR2,p_email VARCHAR2,p_sms_yn CHAR,p_id OUT NUMBER);
+ PROCEDURE process_student_change(
+  p_actor NUMBER,p_request NUMBER,p_action VARCHAR2,p_comment VARCHAR2);
+ PROCEDURE create_topcit_round(
+  p_actor NUMBER,p_round_name VARCHAR2,p_exam_date DATE,p_id OUT NUMBER);
+ PROCEDURE register_topcit_score(
+  p_actor NUMBER,p_student NUMBER,p_round NUMBER,p_score NUMBER,p_remark VARCHAR2,p_id OUT NUMBER);
+ PROCEDURE update_topcit_score(
+  p_actor NUMBER,p_score_id NUMBER,p_new_score NUMBER,p_remark VARCHAR2);
+ PROCEDURE open_student_profile(
+  p_actor NUMBER,p_student NUMBER,p_result OUT SYS_REFCURSOR);
+ PROCEDURE open_topcit_history(
+  p_actor NUMBER,p_student NUMBER,p_result OUT SYS_REFCURSOR);
+END student_topcit_workflow;
+/
+
+CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
+ PROCEDURE require_admin(p_actor NUMBER) IS
+  v_type user_account.user_type%TYPE;
+ BEGIN
+  SELECT user_type INTO v_type
+  FROM user_account
+  WHERE user_id=p_actor AND is_active='Y';
+  IF v_type NOT IN ('ADMIN','MASTER') THEN
+   RAISE_APPLICATION_ERROR(-20001,'Administrator role required');
+  END IF;
+ EXCEPTION
+  WHEN NO_DATA_FOUND THEN RAISE_APPLICATION_ERROR(-20001,'Active administrator required');
+ END;
+
+ PROCEDURE require_read_access(p_actor NUMBER,p_student NUMBER) IS
+  v_type user_account.user_type%TYPE;
+  v_owner student.user_id%TYPE;
+ BEGIN
+  SELECT user_type INTO v_type
+  FROM user_account
+  WHERE user_id=p_actor AND is_active='Y';
+  IF v_type='STUDENT' THEN
+   SELECT user_id INTO v_owner FROM student WHERE student_id=p_student;
+   IF v_owner<>p_actor THEN
+    RAISE_APPLICATION_ERROR(-20001,'Student may read own data only');
+   END IF;
+  ELSIF v_type NOT IN ('ADMIN','MASTER') THEN
+   RAISE_APPLICATION_ERROR(-20001,'Role not authorized');
+  END IF;
+ EXCEPTION
+  WHEN NO_DATA_FOUND THEN RAISE_APPLICATION_ERROR(-20001,'Active actor and target student required');
+ END;
+
+ PROCEDURE log_change(
+  p_actor NUMBER,p_type VARCHAR2,p_id NUMBER,p_action VARCHAR2,
+  p_old VARCHAR2,p_new VARCHAR2,p_reason VARCHAR2) IS
+ BEGIN
+  INSERT INTO change_log(actor_user_id,target_type,target_id,action_type,old_value,new_value,reason)
+  VALUES(p_actor,p_type,p_id,p_action,p_old,p_new,p_reason);
+ END;
+
+ PROCEDURE request_student_change(
+  p_actor NUMBER,p_student NUMBER,p_mobile_phone VARCHAR2,p_email VARCHAR2,p_sms_yn CHAR,p_id OUT NUMBER) IS
+  v_mobile student.mobile_phone%TYPE;
+  v_email student.email%TYPE;
+  v_sms student.sms_yn%TYPE;
+  v_count NUMBER:=0;
+ BEGIN
+  SAVEPOINT student_change_submit;
+  SELECT s.mobile_phone,s.email,s.sms_yn INTO v_mobile,v_email,v_sms
+  FROM student s JOIN user_account u ON u.user_id=s.user_id
+  WHERE s.student_id=p_student AND s.user_id=p_actor
+   AND u.user_type='STUDENT' AND u.is_active='Y';
+
+  INSERT INTO student_change_request(student_id) VALUES(p_student)
+  RETURNING request_id INTO p_id;
+
+  IF p_mobile_phone IS NOT NULL AND NVL(p_mobile_phone,CHR(0))<>NVL(v_mobile,CHR(0)) THEN
+   INSERT INTO student_change_request_detail(request_id,field_name,old_value,new_value)
+   VALUES(p_id,'mobile_phone',v_mobile,p_mobile_phone);
+   v_count:=v_count+1;
+  END IF;
+  IF p_email IS NOT NULL AND NVL(p_email,CHR(0))<>NVL(v_email,CHR(0)) THEN
+   INSERT INTO student_change_request_detail(request_id,field_name,old_value,new_value)
+   VALUES(p_id,'email',v_email,p_email);
+   v_count:=v_count+1;
+  END IF;
+  IF p_sms_yn IS NOT NULL AND p_sms_yn<>v_sms THEN
+   IF p_sms_yn NOT IN ('Y','N') THEN
+    RAISE_APPLICATION_ERROR(-20013,'sms_yn must be Y or N');
+   END IF;
+   INSERT INTO student_change_request_detail(request_id,field_name,old_value,new_value)
+   VALUES(p_id,'sms_yn',v_sms,p_sms_yn);
+   v_count:=v_count+1;
+  END IF;
+  IF v_count=0 THEN
+   RAISE_APPLICATION_ERROR(-20013,'At least one changed value is required');
+  END IF;
+  log_change(p_actor,'STUDENT_CHANGE_REQUEST',p_id,'SUBMIT',NULL,'PENDING','Student change request');
+ EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+   ROLLBACK TO student_change_submit;
+   RAISE_APPLICATION_ERROR(-20001,'Student may request changes for own data only');
+  WHEN OTHERS THEN
+   ROLLBACK TO student_change_submit;
+   RAISE;
+ END;
+
+ PROCEDURE process_student_change(
+  p_actor NUMBER,p_request NUMBER,p_action VARCHAR2,p_comment VARCHAR2) IS
+  v_status student_change_request.request_status%TYPE;
+  v_student student_change_request.student_id%TYPE;
+  v_current VARCHAR2(4000);
+  v_old VARCHAR2(32767):='';
+  v_new VARCHAR2(32767):='';
+  v_requested_old VARCHAR2(4000);
+  v_requested_new VARCHAR2(4000);
+ BEGIN
+  SAVEPOINT student_change_process;
+  require_admin(p_actor);
+  IF p_action IS NULL OR p_action NOT IN ('APPROVED','REJECTED') THEN
+   RAISE_APPLICATION_ERROR(-20015,'Action must be APPROVED or REJECTED');
+  END IF;
+  IF TRIM(p_comment) IS NULL THEN
+   RAISE_APPLICATION_ERROR(-20004,'Process comment is required');
+  END IF;
+
+  SELECT request_status,student_id INTO v_status,v_student
+  FROM student_change_request WHERE request_id=p_request FOR UPDATE;
+  IF v_status<>'PENDING' THEN
+   RAISE_APPLICATION_ERROR(-20011,'Only PENDING request may be processed');
+  END IF;
+
+  IF p_action='APPROVED' THEN
+   FOR r IN (
+    SELECT detail_id,field_name,old_value,new_value
+    FROM student_change_request_detail
+    WHERE request_id=p_request ORDER BY detail_id
+   ) LOOP
+    v_requested_old:=DBMS_LOB.SUBSTR(r.old_value,4000,1);
+    v_requested_new:=DBMS_LOB.SUBSTR(r.new_value,4000,1);
+    IF r.field_name='mobile_phone' THEN
+     SELECT mobile_phone INTO v_current FROM student WHERE student_id=v_student FOR UPDATE;
+     IF NVL(v_current,CHR(0))<>NVL(v_requested_old,CHR(0)) THEN
+      RAISE_APPLICATION_ERROR(-20012,'Student value changed after request: mobile_phone');
+     END IF;
+     UPDATE student SET mobile_phone=v_requested_new WHERE student_id=v_student;
+    ELSIF r.field_name='email' THEN
+     SELECT email INTO v_current FROM student WHERE student_id=v_student FOR UPDATE;
+     IF NVL(v_current,CHR(0))<>NVL(v_requested_old,CHR(0)) THEN
+      RAISE_APPLICATION_ERROR(-20012,'Student value changed after request: email');
+     END IF;
+     UPDATE student SET email=v_requested_new WHERE student_id=v_student;
+    ELSIF r.field_name='sms_yn' THEN
+     SELECT sms_yn INTO v_current FROM student WHERE student_id=v_student FOR UPDATE;
+     IF NVL(v_current,CHR(0))<>NVL(v_requested_old,CHR(0)) THEN
+      RAISE_APPLICATION_ERROR(-20012,'Student value changed after request: sms_yn');
+     END IF;
+     UPDATE student SET sms_yn=v_requested_new WHERE student_id=v_student;
+    ELSE
+     RAISE_APPLICATION_ERROR(-20013,'Unsupported change field');
+    END IF;
+    v_old:=v_old||CASE WHEN LENGTH(v_old)>0 THEN ';' END||r.field_name||'='||NVL(v_requested_old,'NULL');
+    v_new:=v_new||CASE WHEN LENGTH(v_new)>0 THEN ';' END||r.field_name||'='||NVL(v_requested_new,'NULL');
+   END LOOP;
+  ELSE
+   v_old:='PENDING';
+   v_new:='REJECTED';
+  END IF;
+
+  UPDATE student_change_request
+  SET request_status=p_action,processor_id=p_actor,processed_at=SYSTIMESTAMP,process_comment=p_comment
+  WHERE request_id=p_request;
+  log_change(p_actor,'STUDENT_CHANGE_REQUEST',p_request,
+   CASE p_action WHEN 'APPROVED' THEN 'APPROVE' ELSE 'REJECT' END,
+   v_old,v_new,p_comment);
+ EXCEPTION
+  WHEN OTHERS THEN
+   ROLLBACK TO student_change_process;
+   RAISE;
+ END;
+
+ PROCEDURE create_topcit_round(
+  p_actor NUMBER,p_round_name VARCHAR2,p_exam_date DATE,p_id OUT NUMBER) IS
+ BEGIN
+  SAVEPOINT topcit_round_create;
+  require_admin(p_actor);
+  INSERT INTO topcit_round(round_name,exam_date,created_by)
+  VALUES(p_round_name,p_exam_date,p_actor) RETURNING round_id INTO p_id;
+  log_change(p_actor,'TOPCIT_ROUND',p_id,'CREATE',NULL,p_round_name||'/'||TO_CHAR(p_exam_date,'YYYY-MM-DD'),'Round registration');
+ EXCEPTION WHEN OTHERS THEN ROLLBACK TO topcit_round_create; RAISE;
+ END;
+
+ PROCEDURE register_topcit_score(
+  p_actor NUMBER,p_student NUMBER,p_round NUMBER,p_score NUMBER,p_remark VARCHAR2,p_id OUT NUMBER) IS
+ BEGIN
+  SAVEPOINT topcit_score_create;
+  require_admin(p_actor);
+  INSERT INTO topcit_score(student_id,round_id,total_score,created_by,remark)
+  VALUES(p_student,p_round,p_score,p_actor,p_remark) RETURNING score_id INTO p_id;
+  log_change(p_actor,'TOPCIT_SCORE',p_id,'CREATE',NULL,TO_CHAR(p_score),'Score registration');
+ EXCEPTION WHEN OTHERS THEN ROLLBACK TO topcit_score_create; RAISE;
+ END;
+
+ PROCEDURE update_topcit_score(
+  p_actor NUMBER,p_score_id NUMBER,p_new_score NUMBER,p_remark VARCHAR2) IS
+  v_old topcit_score.total_score%TYPE;
+ BEGIN
+  SAVEPOINT topcit_score_update;
+  require_admin(p_actor);
+  SELECT total_score INTO v_old FROM topcit_score WHERE score_id=p_score_id FOR UPDATE;
+  IF v_old=p_new_score THEN
+   RAISE_APPLICATION_ERROR(-20014,'New TOPCIT score equals current score');
+  END IF;
+  UPDATE topcit_score
+  SET total_score=p_new_score,updated_by=p_actor,updated_at=SYSTIMESTAMP,remark=p_remark
+  WHERE score_id=p_score_id;
+  log_change(p_actor,'TOPCIT_SCORE',p_score_id,'UPDATE',TO_CHAR(v_old),TO_CHAR(p_new_score),p_remark);
+ EXCEPTION WHEN OTHERS THEN ROLLBACK TO topcit_score_update; RAISE;
+ END;
+
+ PROCEDURE open_student_profile(
+  p_actor NUMBER,p_student NUMBER,p_result OUT SYS_REFCURSOR) IS
+ BEGIN
+  require_read_access(p_actor,p_student);
+  OPEN p_result FOR SELECT * FROM v_student_profile WHERE student_id=p_student;
+ END;
+
+ PROCEDURE open_topcit_history(
+  p_actor NUMBER,p_student NUMBER,p_result OUT SYS_REFCURSOR) IS
+ BEGIN
+  require_read_access(p_actor,p_student);
+  OPEN p_result FOR
+   SELECT score_id,student_id,round_id,round_name,exam_date,total_score,previous_score,score_change
+   FROM v_topcit_score_change WHERE student_id=p_student ORDER BY exam_date,round_id;
+ END;
+END student_topcit_workflow;
+/
+
+-- 학생이 직접 요청 가능한 필드는 연락처, 이메일, SMS 수신 여부로 제한한다.
+-- 학과·학적·입학 정보 변경은 관리자 전용 후속 정책이며 직접 DML을 허용하지 않는 운영 권한 분리가 필요하다.
+-- 두 패키지는 COMMIT하지 않는다. 호출자가 업무 성공 시 COMMIT하고 실패 시 ROLLBACK한다.
+-- END STUDENT_AND_TOPCIT

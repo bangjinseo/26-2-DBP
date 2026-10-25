@@ -129,4 +129,214 @@ BEGIN
 EXCEPTION WHEN OTHERS THEN ROLLBACK; RAISE;
 END;
 /
+
+-- BEGIN STUDENT_AND_TOPCIT
+DECLARE
+ v_n NUMBER;
+ v_before NUMBER;
+ v_after NUMBER;
+ v_score_id NUMBER;
+ v_request_id NUMBER;
+ v_text VARCHAR2(4000);
+ v_rc SYS_REFCURSOR;
+
+ PROCEDURE eq(p_name VARCHAR2,p_actual NUMBER,p_expected NUMBER) IS
+ BEGIN
+  IF p_actual IS NULL OR p_actual<>p_expected THEN
+   RAISE_APPLICATION_ERROR(-20810,p_name||': expected='||p_expected||',actual='||p_actual);
+  END IF;
+  DBMS_OUTPUT.PUT_LINE('PASS | '||p_name||' | expected='||p_expected||' actual='||p_actual);
+ END;
+
+ PROCEDURE text_eq(p_name VARCHAR2,p_actual VARCHAR2,p_expected VARCHAR2) IS
+ BEGIN
+  IF NVL(p_actual,CHR(0))<>NVL(p_expected,CHR(0)) THEN
+   RAISE_APPLICATION_ERROR(-20811,p_name||': expected='||p_expected||',actual='||p_actual);
+  END IF;
+  DBMS_OUTPUT.PUT_LINE('PASS | '||p_name||' | expected='||p_expected||' actual='||p_actual);
+ END;
+
+ PROCEDURE error_is(p_name VARCHAR2,p_sql VARCHAR2,p_code NUMBER,p_preserve BOOLEAN DEFAULT FALSE) IS
+  v_code NUMBER:=0;
+ BEGIN
+  SAVEPOINT expected_student_topcit_error;
+  BEGIN EXECUTE IMMEDIATE p_sql;
+  EXCEPTION WHEN OTHERS THEN v_code:=SQLCODE;
+  END;
+  IF NOT p_preserve THEN ROLLBACK TO expected_student_topcit_error; END IF;
+  eq(p_name,v_code,p_code);
+ END;
+
+ PROCEDURE access_error_is(p_name VARCHAR2,p_actor NUMBER,p_student NUMBER,p_code NUMBER) IS
+  v_code NUMBER:=0;
+  v_cursor SYS_REFCURSOR;
+ BEGIN
+  BEGIN
+   student_topcit_workflow.open_student_profile(p_actor,p_student,v_cursor);
+   CLOSE v_cursor;
+  EXCEPTION WHEN OTHERS THEN v_code:=SQLCODE;
+  END;
+  eq(p_name,v_code,p_code);
+ END;
+BEGIN
+ -- 최소 정상 데이터 규모와 역할·권한 데이터.
+ SELECT COUNT(*) INTO v_n FROM role; eq('three roles',v_n,3);
+ SELECT COUNT(*) INTO v_n FROM role_permission WHERE role_id=1; eq('student permissions',v_n,3);
+ SELECT COUNT(*) INTO v_n FROM student; eq('ten students',v_n,10);
+ SELECT COUNT(DISTINCT department_id) INTO v_n FROM student; eq('two departments',v_n,2);
+ SELECT COUNT(DISTINCT grade) INTO v_n FROM student; eq('two grades',v_n,2);
+ SELECT COUNT(*) INTO v_n FROM student_change_request; eq('five change requests',v_n,5);
+ SELECT COUNT(*) INTO v_n FROM student_change_request WHERE request_status='APPROVED'; eq('approved requests',v_n,2);
+ SELECT COUNT(*) INTO v_n FROM student_change_request WHERE request_status='REJECTED'; eq('rejected requests',v_n,2);
+ SELECT COUNT(*) INTO v_n FROM student_change_request WHERE request_status='PENDING'; eq('pending requests',v_n,1);
+ SELECT COUNT(*) INTO v_n FROM topcit_round; eq('two TOPCIT rounds',v_n,2);
+ SELECT COUNT(*) INTO v_n FROM topcit_score; eq('fifteen TOPCIT scores',v_n,15);
+
+ -- Q01과 접근 범위: 학생 본인, 일반관리자, 마스터 허용. 다른 학생은 차단.
+ student_topcit_workflow.open_student_profile(101,1,v_rc); CLOSE v_rc;
+ eq('Q01 own profile allowed',1,1);
+ student_topcit_workflow.open_student_profile(2,1,v_rc); CLOSE v_rc;
+ eq('Q01 admin profile allowed',1,1);
+ student_topcit_workflow.open_student_profile(1,1,v_rc); CLOSE v_rc;
+ eq('Q01 master profile allowed',1,1);
+ access_error_is('Q01 other student blocked',101,2,-20001);
+ SELECT COUNT(*) INTO v_n FROM v_student_profile WHERE student_id=1 AND mobile_phone='010-1111-0001';
+ eq('Q01 expected current phone',v_n,1);
+
+ -- DB가 직접 강제하는 PK/FK/UNIQUE/CHECK 검증.
+ SELECT COUNT(*) INTO v_before FROM student;
+ SAVEPOINT duplicate_student_number_case;
+ INSERT INTO user_account(user_id,role_id,login_id,password_info,user_type)
+ VALUES(9991,1,'duplicate_student_no_case','hash','STUDENT');
+ error_is('duplicate student number rejected',
+  q'[INSERT INTO student(student_id,user_id,department_id,status_code,admission_type_code,student_no,student_name,grade,admission_date,sms_yn) VALUES(9991,9991,10,'ENROLLED','FRESHMAN','DEMO2026001','duplicate student',1,DATE '2026-03-02','N')]',-1);
+ SELECT COUNT(*) INTO v_after FROM student;
+ eq('duplicate student failure keeps existing data',v_after,v_before);
+ ROLLBACK TO duplicate_student_number_case;
+ error_is('duplicate login rejected',
+  q'[INSERT INTO user_account(user_id,role_id,login_id,password_info,user_type) VALUES(9991,1,'student_demo_1','hash','STUDENT')]',-1);
+ SELECT COUNT(*) INTO v_after FROM user_account;
+ eq('duplicate login failure keeps existing data',v_after,12);
+ error_is('missing role rejected',
+  q'[INSERT INTO user_account(user_id,role_id,login_id,password_info,user_type) VALUES(9991,999,'invalid_role','hash','STUDENT')]',-2291);
+ error_is('missing department rejected',q'[UPDATE student SET department_id=999 WHERE student_id=1]',-2291);
+ error_is('missing TOPCIT student rejected',
+  q'[INSERT INTO topcit_score(student_id,round_id,total_score,created_by) VALUES(999,1,500,2)]',-2291);
+ error_is('missing TOPCIT round rejected',
+  q'[INSERT INTO topcit_score(student_id,round_id,total_score,created_by) VALUES(9,999,500,2)]',-2291);
+ SELECT COUNT(*) INTO v_before FROM topcit_score;
+ error_is('duplicate student round rejected',
+  q'[INSERT INTO topcit_score(student_id,round_id,total_score,created_by) VALUES(1,1,500,2)]',-1);
+ SELECT COUNT(*) INTO v_after FROM topcit_score;
+ eq('duplicate TOPCIT failure keeps existing data',v_after,v_before);
+ error_is('TOPCIT below minimum rejected',
+  q'[INSERT INTO topcit_score(student_id,round_id,total_score,created_by) VALUES(9,1,-1,2)]',-2290);
+ error_is('TOPCIT above maximum rejected',
+  q'[INSERT INTO topcit_score(student_id,round_id,total_score,created_by) VALUES(10,1,1001,2)]',-2290);
+
+ SAVEPOINT topcit_boundary_cases;
+ student_topcit_workflow.register_topcit_score(2,9,1,0,'minimum boundary',v_score_id);
+ SELECT total_score INTO v_n FROM topcit_score WHERE score_id=v_score_id; eq('TOPCIT minimum accepted',v_n,0);
+ ROLLBACK TO topcit_boundary_cases;
+ SAVEPOINT topcit_boundary_cases_max;
+ student_topcit_workflow.register_topcit_score(2,10,1,1000,'maximum boundary',v_score_id);
+ SELECT total_score INTO v_n FROM topcit_score WHERE score_id=v_score_id; eq('TOPCIT maximum accepted',v_n,1000);
+ ROLLBACK TO topcit_boundary_cases_max;
+
+ -- Q02 및 학생정보 요청 승인·반려. 승인 전에는 기본정보가 바뀌지 않는다.
+ SELECT email INTO v_text FROM student WHERE student_id=3;
+ text_eq('pending request keeps base data',v_text,'student3@example.invalid');
+ SELECT COUNT(*) INTO v_n
+ FROM student_change_request r JOIN student_change_request_detail d ON d.request_id=r.request_id
+ WHERE r.request_id=1 AND r.request_status='APPROVED'
+  AND r.processor_id=2 AND r.processed_at IS NOT NULL AND r.process_comment IS NOT NULL;
+ eq('Q02 approved request details',v_n,2);
+ SAVEPOINT approve_student_request;
+ student_topcit_workflow.process_student_change(2,3,'APPROVED','test approval');
+ SELECT email INTO v_text FROM student WHERE student_id=3;
+ text_eq('approval changes base data',v_text,'student3.pending@example.invalid');
+ SELECT COUNT(*) INTO v_n FROM student_change_request
+  WHERE request_id=3 AND request_status='APPROVED' AND processor_id=2 AND processed_at IS NOT NULL;
+ eq('approval metadata',v_n,1);
+ SELECT COUNT(*) INTO v_n FROM change_log
+  WHERE target_type='STUDENT_CHANGE_REQUEST' AND target_id=3 AND action_type='APPROVE';
+ eq('approval change log',v_n,1);
+ ROLLBACK TO approve_student_request;
+
+ SAVEPOINT reject_student_request;
+ student_topcit_workflow.process_student_change(2,3,'REJECTED','test rejection');
+ SELECT email INTO v_text FROM student WHERE student_id=3;
+ text_eq('rejection keeps base data',v_text,'student3@example.invalid');
+ SELECT COUNT(*) INTO v_n FROM student_change_request
+  WHERE request_id=3 AND request_status='REJECTED' AND processor_id=2 AND process_comment='test rejection';
+ eq('rejection metadata',v_n,1);
+ SELECT COUNT(*) INTO v_n FROM change_log
+  WHERE target_type='STUDENT_CHANGE_REQUEST' AND target_id=3 AND action_type='REJECT';
+ eq('rejection change log',v_n,1);
+ ROLLBACK TO reject_student_request;
+
+ error_is('approved request cannot be processed again',
+  q'[BEGIN student_topcit_workflow.process_student_change(2,1,'APPROVED','repeat'); END;]',-20011);
+ error_is('rejected request cannot be processed again',
+  q'[BEGIN student_topcit_workflow.process_student_change(2,2,'APPROVED','repeat'); END;]',-20011);
+
+ -- Q03, Q04 및 TOPCIT 수정 로그.
+ SELECT score_change INTO v_n FROM v_topcit_score_change WHERE student_id=1 AND round_id=2;
+ eq('Q03 student1 score change',v_n,50);
+ SELECT COUNT(*) INTO v_n FROM v_topcit_score_change WHERE student_id=1 AND round_id=1 AND previous_score IS NULL;
+ eq('Q03 first previous score null',v_n,1);
+ SELECT COUNT(*) INTO v_n FROM (
+  SELECT s.department_id,s.grade,ROUND(AVG(ts.total_score),2) average_score,COUNT(*) examinee_count
+  FROM topcit_score ts JOIN student s ON s.student_id=ts.student_id
+  WHERE ts.round_id=1 GROUP BY s.department_id,s.grade
+ ) WHERE department_id=10 AND grade=1 AND average_score=766.67 AND examinee_count=3;
+ eq('Q04 expected average and count',v_n,1);
+
+ SELECT score_id INTO v_score_id FROM topcit_score WHERE student_id=2 AND round_id=2;
+ SAVEPOINT update_topcit_case;
+ student_topcit_workflow.update_topcit_score(2,v_score_id,690,'test score correction');
+ SELECT total_score INTO v_n FROM topcit_score WHERE score_id=v_score_id; eq('TOPCIT score updated',v_n,690);
+ SELECT COUNT(*) INTO v_n FROM change_log
+  WHERE target_type='TOPCIT_SCORE' AND target_id=v_score_id AND action_type='UPDATE'
+   AND DBMS_LOB.SUBSTR(old_value,100,1)='680' AND DBMS_LOB.SUBSTR(new_value,100,1)='690';
+ eq('TOPCIT update change log',v_n,1);
+ ROLLBACK TO update_topcit_case;
+ error_is('same TOPCIT score rejected',
+  'BEGIN student_topcit_workflow.update_topcit_score(2,'||v_score_id||',680,''same score''); END;',-20014);
+
+ -- Q12 시드 로그 건수: 학생 요청 5+처리 4, 회차 2, 점수 등록 15+수정 1.
+ SELECT COUNT(*) INTO v_n FROM change_log WHERE target_type='STUDENT_CHANGE_REQUEST';
+ eq('Q12 student request logs',v_n,9);
+ SELECT COUNT(*) INTO v_n FROM change_log WHERE target_type='TOPCIT_ROUND';
+ eq('Q12 TOPCIT round logs',v_n,2);
+ SELECT COUNT(*) INTO v_n FROM change_log WHERE target_type='TOPCIT_SCORE';
+ eq('Q12 TOPCIT score logs',v_n,16);
+
+ -- 학생 승인 중 로그 실패를 주입하여 기본정보·상태·로그가 모두 롤백되는지 확인.
+ SAVEPOINT student_log_failure_case;
+ student_topcit_workflow.request_student_change(103,3,'010-3333-0003',NULL,NULL,v_request_id);
+ SELECT COUNT(*) INTO v_before FROM change_log;
+ error_is('student approval log failure',
+  'BEGIN student_topcit_workflow.process_student_change(2,'||v_request_id||',''APPROVED'',''TEST_FAIL_LOG''); END;',-20999,TRUE);
+ SELECT COUNT(*) INTO v_n FROM student WHERE student_id=3 AND mobile_phone='010-0000-0003';
+ eq('rollback student base data',v_n,1);
+ SELECT COUNT(*) INTO v_n FROM student_change_request WHERE request_id=v_request_id AND request_status='PENDING';
+ eq('rollback student request state',v_n,1);
+ SELECT COUNT(*) INTO v_after FROM change_log; eq('rollback student log count',v_after,v_before);
+ ROLLBACK TO student_log_failure_case;
+
+ -- TOPCIT 수정 중 로그 실패도 점수와 로그를 함께 복구한다.
+ SELECT score_id INTO v_score_id FROM topcit_score WHERE student_id=2 AND round_id=2;
+ SELECT COUNT(*) INTO v_before FROM change_log;
+ error_is('TOPCIT update log failure',
+  'BEGIN student_topcit_workflow.update_topcit_score(2,'||v_score_id||',690,''TEST_FAIL_LOG''); END;',-20999,TRUE);
+ SELECT total_score INTO v_n FROM topcit_score WHERE score_id=v_score_id; eq('rollback TOPCIT score',v_n,680);
+ SELECT COUNT(*) INTO v_after FROM change_log; eq('rollback TOPCIT log count',v_after,v_before);
+
+ ROLLBACK;
+ DBMS_OUTPUT.PUT_LINE('STUDENT/TOPCIT TESTS PASSED');
+EXCEPTION WHEN OTHERS THEN ROLLBACK; RAISE;
+END;
+/
+-- END STUDENT_AND_TOPCIT
 DROP TRIGGER test_fail_log;
