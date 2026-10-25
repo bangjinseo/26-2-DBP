@@ -19,4 +19,5 @@ END;
 @@03_queries.sql
 @@06_satisfaction_queries.sql
 @@04_tests.sql
+@@07_satisfaction_tests.sql
 PROMPT DEMO COMPLETED

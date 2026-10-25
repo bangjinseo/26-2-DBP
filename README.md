@@ -39,6 +39,7 @@ Oracle AI Database 26ai Free와 SQL Developer의 스크립트 실행(F5)을 기�
 | 6 | `sql/03_queries.sql` | Q01~Q09와 Q12, 입력조건·예상값 |
 | 7 | `sql/06_satisfaction_queries.sql` | Q10/Q11과 만족도 공통로그 조회 |
 | 8 | `sql/04_tests.sql` | 학생·TOPCIT·마일리지·예산 오류·경계·권한·로그·롤백 자동 검증 |
+| 9 | `sql/07_satisfaction_tests.sql` | 만족도 집계·권한·중복·범위·로그 롤백 검증 |
 | 선택 | `sql/05_workflow_examples.sql` | 기존 마일리지·지출 승인 전후 시연 |
 
 학생·TOPCIT 수작업 예상값과 필수 검증 대응은 [`docs/학생_TOPCIT_구현및검증.md`](docs/%ED%95%99%EC%83%9D_TOPCIT_%EA%B5%AC%ED%98%84%EB%B0%8F%EA%B2%80%EC%A6%9D.md)에 정리했다.
@@ -138,14 +139,14 @@ DDL은 암묵적으로 커밋되므로 전체 생성 스크립트는 빈 전용 
 - 만족도 구현은 공통 사용자·역할·권한·로그 테이블을 재사용한다. `SATISFACTION_RESPOND`, `SATISFACTION_RESULT_READ`, `SATISFACTION_MANAGE` 기능권한을 역할에 연결하고, 업무 패키지에서 활성 계정과 권한을 검사한다.
 - 만족도는 조사 종료일까지 응답할 수 있고, 한 학생은 조사당 하나의 응답만 가진다. 문항 형식은 `SCORE`(1~5) 또는 `TEXT`이며, 필수 문항을 모두 답해야 완료할 수 있다. Q10/Q11 집계에서는 완료된 응답만 사용한다.
 - 만족도 조사 생성·공개/종료·문항 생성·응답 완료를 `CHANGE_LOG`에 기록한다. 업무 패키지는 자체 COMMIT을 하지 않고 로그 실패 시 SAVEPOINT까지 되돌린다. 직접 테이블 접근 권한을 가진 동일 스키마 사용자는 패키지 검증을 우회할 수 있다.
-- 기존 검증 원문은 마일리지·예산 구현 당시 결과다. 학생·TOPCIT 추가 후에는 빈 Oracle 스키마에서 전체 테스트를 다시 실행해야 한다.
+- 최신 통합 실행 원문은 [`verification/ahhyeon-oracle-validation.txt`](verification/ahhyeon-oracle-validation.txt)에 보관한다.
 
 ## 현재 검증 상태
 
-- 검증일: 2026-10-25, 한국 시간 기준
-- 환경: Apple Silicon macOS 26.6.2, Podman Desktop 1.30.5, Oracle AI Database 26ai Free 23.26.3.0.0 ARM64
-- 실행: 빈 `PBL2` 사용자에서 컨테이너 SQL*Plus로 `run_demo.sql` 전체 실행함
+- 검증일: 2026-10-26, 한국 시간 기준
+- 환경: macOS Docker Desktop, Oracle AI Database 26ai Free 23.26.3.0.0, AL32UTF8
+- 실행: 빈 `PBL3` 사용자에서 컨테이너 SQL*Plus로 최신 `run_demo.sql` 전체 실행함
 - 문자셋: `NLS_LANG=AMERICAN_AMERICA.AL32UTF8`로 한국어 시드를 검증함
-- 결과: PASS 113개, `ALL TESTS PASSED`, `STUDENT/TOPCIT TESTS PASSED`, `DEMO COMPLETED` 확인함
-- 객체: 테이블 29개, 뷰 4개, 패키지 2개와 본문 2개 모두 VALID, `USER_ERRORS=0`임
-- 실행 원문: `verification/student-topcit-oracle-validation.txt`에 저장함
+- 결과: 기존 업무 57개, 학생·TOPCIT 56개, 만족도 18개 검사 모두 PASS. `ALL TESTS PASSED`, `STUDENT/TOPCIT TESTS PASSED`, `SATISFACTION TESTS PASSED`, `DEMO COMPLETED` 확인함
+- 객체: 테이블 33개, 뷰 6개, 패키지 3개와 본문 3개 모두 VALID, `USER_ERRORS=0`임
+- 실행 원문: `verification/ahhyeon-oracle-validation.txt`에 저장함
