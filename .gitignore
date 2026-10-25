@@ -5,3 +5,4 @@
 !.env.example
 connections*.json
 local/
+tmp/
