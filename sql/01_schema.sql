@@ -184,6 +184,7 @@ CREATE OR REPLACE PACKAGE BODY pbl_workflow AS
  END;
  PROCEDURE process_mileage(p_actor NUMBER,p_id NUMBER,p_action VARCHAR2,p_reason VARCHAR2) IS
   v_old mileage_application.status%TYPE; v_points NUMBER; v_owner NUMBER;
+  v_active_student NUMBER;
  BEGIN
   SAVEPOINT mileage_process;
   require_reason(p_reason);
@@ -191,7 +192,12 @@ CREATE OR REPLACE PACKAGE BODY pbl_workflow AS
    FROM mileage_application a JOIN student s ON s.student_id=a.student_id
    WHERE a.application_id=p_id FOR UPDATE OF a.status;
   IF p_action='CANCELLED' THEN
-   IF p_actor IS NULL OR p_actor<>v_owner THEN require_role(p_actor,TRUE); END IF;
+   -- 본인 취소도 활성 학생 계정이어야 한다. 활성 마스터의 취소 권한은 유지한다.
+   SELECT COUNT(*) INTO v_active_student FROM user_account
+    WHERE user_id=p_actor AND user_type='STUDENT' AND is_active='Y';
+   IF p_actor IS NULL OR p_actor<>v_owner OR v_active_student=0 THEN
+    require_role(p_actor,TRUE);
+   END IF;
   ELSE require_role(p_actor,TRUE); END IF;
   IF p_action IS NULL OR NOT ((v_old='PENDING' AND p_action IN ('APPROVED','REJECTED','CANCELLED'))
    OR (v_old='APPROVED' AND p_action='REVOKED')) THEN
