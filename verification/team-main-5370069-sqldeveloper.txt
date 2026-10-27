@@ -1,0 +1,1392 @@
+
+Session이(가) 변경되었습니다.
+
+
+Table ROLE이(가) 생성되었습니다.
+
+
+Table PERMISSION이(가) 생성되었습니다.
+
+
+Table ROLE_PERMISSION이(가) 생성되었습니다.
+
+
+Table USER_ACCOUNT이(가) 생성되었습니다.
+
+
+Table COLLEGE이(가) 생성되었습니다.
+
+
+Table DEPARTMENT이(가) 생성되었습니다.
+
+
+Table STUDENT_STATUS_CODE이(가) 생성되었습니다.
+
+
+Table ADMISSION_TYPE_CODE이(가) 생성되었습니다.
+
+
+Table STUDENT이(가) 생성되었습니다.
+
+
+Table STUDENT_STATUS_HISTORY이(가) 생성되었습니다.
+
+
+Table STUDENT_CHANGE_REQUEST이(가) 생성되었습니다.
+
+
+Table STUDENT_CHANGE_REQUEST_DETAIL이(가) 생성되었습니다.
+
+
+Table TOPCIT_ROUND이(가) 생성되었습니다.
+
+
+Table TOPCIT_SCORE이(가) 생성되었습니다.
+
+
+Table PROGRAM이(가) 생성되었습니다.
+
+
+Table PROFESSOR이(가) 생성되었습니다.
+
+
+Table CHANGE_LOG이(가) 생성되었습니다.
+
+
+Index IX_USER_ACCOUNT_ROLE이(가) 생성되었습니다.
+
+
+Index IX_DEPARTMENT_COLLEGE이(가) 생성되었습니다.
+
+
+Index IX_STUDENT_DEPARTMENT이(가) 생성되었습니다.
+
+
+Index IX_STATUS_HISTORY_STUDENT이(가) 생성되었습니다.
+
+
+Index IX_CHANGE_REQUEST_STUDENT이(가) 생성되었습니다.
+
+
+Index IX_CHANGE_DETAIL_REQUEST이(가) 생성되었습니다.
+
+
+Index IX_TOPCIT_SCORE_ROUND이(가) 생성되었습니다.
+
+
+Index IX_CHANGE_LOG_TARGET이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Table MILEAGE_STANDARD이(가) 생성되었습니다.
+
+
+Table MILEAGE_APPLICATION이(가) 생성되었습니다.
+
+
+Table ATTACHMENT_FILE이(가) 생성되었습니다.
+
+
+Table MILEAGE_ACCRUAL이(가) 생성되었습니다.
+
+
+Table MILEAGE_PROCESS_HISTORY이(가) 생성되었습니다.
+
+
+Table BUDGET_PROJECT이(가) 생성되었습니다.
+
+
+Table BUDGET_ITEM이(가) 생성되었습니다.
+
+
+Table PROJECT_BUDGET이(가) 생성되었습니다.
+
+
+Table EXPENSE_SUBJECT이(가) 생성되었습니다.
+
+
+Table EXPENSE이(가) 생성되었습니다.
+
+
+Table EXPENSE_PROCESS_HISTORY이(가) 생성되었습니다.
+
+
+Table BUDGET_CHANGE_HISTORY이(가) 생성되었습니다.
+
+
+Index IX_EXPENSE_BUDGET_STATUS이(가) 생성되었습니다.
+
+
+Index IX_MILEAGE_STANDARD이(가) 생성되었습니다.
+
+
+Index IX_ATTACHMENT_APPLICATION이(가) 생성되었습니다.
+
+
+Index IX_MILEAGE_HISTORY이(가) 생성되었습니다.
+
+
+Index IX_EXPENSE_HISTORY이(가) 생성되었습니다.
+
+
+Index IX_BUDGET_HISTORY이(가) 생성되었습니다.
+
+
+View V_STUDENT_MILEAGE이(가) 생성되었습니다.
+
+
+View V_BUDGET_SUMMARY이(가) 생성되었습니다.
+
+
+Package PBL_WORKFLOW이(가) 컴파일되었습니다.
+
+
+Package Body PBL_WORKFLOW이(가) 컴파일되었습니다.
+
+
+View V_STUDENT_PROFILE이(가) 생성되었습니다.
+
+
+View V_TOPCIT_SCORE_CHANGE이(가) 생성되었습니다.
+
+
+Package STUDENT_TOPCIT_WORKFLOW이(가) 컴파일되었습니다.
+
+
+Package Body STUDENT_TOPCIT_WORKFLOW이(가) 컴파일되었습니다.
+
+
+Table SATISFACTION_SURVEY이(가) 생성되었습니다.
+
+
+Table SURVEY_QUESTION이(가) 생성되었습니다.
+
+
+Table SURVEY_RESPONSE이(가) 생성되었습니다.
+
+
+Table SURVEY_RESPONSE_DETAIL이(가) 생성되었습니다.
+
+
+Index IX_SURVEY_PROGRAM_STATUS이(가) 생성되었습니다.
+
+
+Index IX_SURVEY_QUESTION_SURVEY이(가) 생성되었습니다.
+
+
+Index IX_SURVEY_RESPONSE_SURVEY이(가) 생성되었습니다.
+
+
+Index IX_SURVEY_DETAIL_QUESTION이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+Comment이(가) 생성되었습니다.
+
+
+View V_SATISFACTION_SUMMARY이(가) 생성되었습니다.
+
+
+View V_SATISFACTION_BY_DEPARTMENT이(가) 생성되었습니다.
+
+
+Package SATISFACTION_WORKFLOW이(가) 컴파일되었습니다.
+
+
+Package Body SATISFACTION_WORKFLOW이(가) 컴파일되었습니다.
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+7개 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+커밋 완료.
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+1 행 이(가) 삽입되었습니다.
+
+
+2개 행 이(가) 삽입되었습니다.
+
+
+3개 행 이(가) 삽입되었습니다.
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+이전:BEGIN
+ student_topcit_workflow.open_student_profile(&actor_user_id,&target_student_id,:q01_cursor);
+END;
+
+신규:BEGIN
+ student_topcit_workflow.open_student_profile(101,1,:q01_cursor);
+END;
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+
+STUDENT_ID STUDENT_NO           STUDENT_NAME                                          USER_ID LOGIN_ID                                           COLLEGE_ID
+---------- -------------------- -------------------------------------------------- ---------- -------------------------------------------------- ----------
+COLLEGE_NAME                                                                                         DEPARTMENT_ID
+---------------------------------------------------------------------------------------------------- -------------
+DEPARTMENT_NAME                                                                                      TRACK_TYPE                     CAMPUS                                                  GRADE
+---------------------------------------------------------------------------------------------------- ------------------------------ -------------------------------------------------- ----------
+STATUS_CODE          STATUS_NAME                                        ADMISSION_TYPE_CODE  ADMISSION_TYPE_NAME                                ADMISSIO MOBILE_PHONE         S
+-------------------- -------------------------------------------------- -------------------- -------------------------------------------------- -------- -------------------- -
+EMAIL                                                                                               
+----------------------------------------------------------------------------------------------------
+         1 DEMO2026001          가상학생1                                                  101 student_demo_1                                              1 
+가상 SW융합대학                                                                                                  10 
+가상 컴퓨터학과                                                                                        ENGINEERING                    본교                                                        1 
+ENROLLED             재학                                               FRESHMAN             신입학                                             26/03/02 010-1111-0001        N 
+student1.new@example.invalid                                                                        
+
+
+
+이전:SELECT r.request_id,r.student_id,d.field_name,
+ DBMS_LOB.SUBSTR(d.old_value,4000,1) old_value,
+ DBMS_LOB.SUBSTR(d.new_value,4000,1) new_value,
+ r.request_status,r.requested_at,r.processor_id,u.login_id processor_login,
+ r.processed_at,r.process_comment
+FROM student_change_request r
+JOIN student_change_request_detail d ON d.request_id=r.request_id
+LEFT JOIN user_account u ON u.user_id=r.processor_id
+WHERE r.student_id=&target_student_id
+ORDER BY r.requested_at,r.request_id,d.detail_id
+신규:SELECT r.request_id,r.student_id,d.field_name,
+ DBMS_LOB.SUBSTR(d.old_value,4000,1) old_value,
+ DBMS_LOB.SUBSTR(d.new_value,4000,1) new_value,
+ r.request_status,r.requested_at,r.processor_id,u.login_id processor_login,
+ r.processed_at,r.process_comment
+FROM student_change_request r
+JOIN student_change_request_detail d ON d.request_id=r.request_id
+LEFT JOIN user_account u ON u.user_id=r.processor_id
+WHERE r.student_id=1
+ORDER BY r.requested_at,r.request_id,d.detail_id
+
+REQUEST_ID STUDENT_ID FIELD_NAME
+---------- ---------- --------------------------------------------------
+OLD_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NEW_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REQUEST_STATUS       REQUESTED_AT                PROCESSOR_ID PROCESSOR_LOGIN                                    PROCESSED_AT
+-------------------- --------------------------- ------------ -------------------------------------------------- ---------------------------
+PROCESS_COMMENT                                                                                                                                                                                         
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         1          1 mobile_phone                                       
+010-0000-0001                                                                                                                                                                                           
+010-1111-0001                                                                                                                                                                                           
+APPROVED             26/10/27 08:29:05.795508000            2 admin_demo                                         26/10/27 08:29:05.891698000 
+연락처 확인 완료                                                                                                                                                                                          
+
+         1          1 email                                              
+student1@example.invalid                                                                                                                                                                                
+student1.new@example.invalid                                                                                                                                                                            
+APPROVED             26/10/27 08:29:05.795508000            2 admin_demo                                         26/10/27 08:29:05.891698000 
+연락처 확인 완료                                                                                                                                                                                          
+
+
+이전:SELECT score_id,student_id,round_id,round_name,exam_date,
+ previous_score,total_score current_score,score_change
+FROM v_topcit_score_change
+WHERE student_id=&student_id
+ORDER BY exam_date,round_id
+신규:SELECT score_id,student_id,round_id,round_name,exam_date,
+ previous_score,total_score current_score,score_change
+FROM v_topcit_score_change
+WHERE student_id=1
+ORDER BY exam_date,round_id
+
+  SCORE_ID STUDENT_ID   ROUND_ID ROUND_NAME                                                                                           EXAM_DAT PREVIOUS_SCORE CURRENT_SCORE SCORE_CHANGE
+---------- ---------- ---------- ---------------------------------------------------------------------------------------------------- -------- -------------- ------------- ------------
+         1          1          1 2026년 제1회                                                                                         26/05/16                          600             
+         9          1          2 2026년 제2회                                                                                         26/09/19            600           650           50
+
+
+  ROUND_ID ROUND_NAME                                                                                           EXAM_DAT DEPARTMENT_ID
+---------- ---------------------------------------------------------------------------------------------------- -------- -------------
+DEPARTMENT_NAME                                                                                           GRADE AVERAGE_SCORE EXAMINEE_COUNT
+---------------------------------------------------------------------------------------------------- ---------- ------------- --------------
+         1 2026년 제1회                                                                                         26/05/16            10 
+가상 컴퓨터학과                                                                                                 1        766.67              3
+
+         1 2026년 제1회                                                                                         26/05/16            10 
+가상 컴퓨터학과                                                                                                 2           600              2
+
+         1 2026년 제1회                                                                                         26/05/16            20 
+가상 소프트웨어학과                                                                                             1           750              1
+
+         1 2026년 제1회                                                                                         26/05/16            20 
+가상 소프트웨어학과                                                                                             2           600              2
+
+         2 2026년 제2회                                                                                         26/09/19            10 
+가상 컴퓨터학과                                                                                                 1        766.67              3
+
+         2 2026년 제2회                                                                                         26/09/19            10 
+가상 컴퓨터학과                                                                                                 2           600              2
+
+         2 2026년 제2회                                                                                         26/09/19            20 
+가상 소프트웨어학과                                                                                             1           600              1
+
+         2 2026년 제2회                                                                                         26/09/19            20 
+가상 소프트웨어학과                                                                                             2           700              1
+
+
+8개 행이 선택되었습니다. 
+
+
+STUDENT_ID STUDENT_NAME                                       TOTAL_MILEAGE
+---------- -------------------------------------------------- -------------
+         1 가상학생1                                                     400
+         2 가상학생2                                                     130
+         3 가상학생3                                                      80
+         4 가상학생4                                                     200
+         5 가상학생5                                                       0
+         6 가상학생6                                                       0
+         7 가상학생7                                                       0
+         8 가상학생8                                                       0
+         9 가상학생9                                                       0
+        10 가상학생10                                                      0
+
+10개 행이 선택되었습니다. 
+
+이전:SELECT * FROM v_student_mileage WHERE student_id=&student_id
+신규:SELECT * FROM v_student_mileage WHERE student_id=1
+
+STUDENT_ID STUDENT_NAME                                       TOTAL_MILEAGE
+---------- -------------------------------------------------- -------------
+         1 가상학생1                                                     400
+
+이전:SELECT p.program_id,p.detail_program_name,a.application_id,a.student_id,
+ a.approved_at,c.earned_mileage
+FROM program p JOIN mileage_standard ms ON ms.program_id=p.program_id
+JOIN mileage_application a ON a.standard_id=ms.standard_id
+JOIN mileage_accrual c ON c.application_id=a.application_id
+WHERE a.status='APPROVED' AND c.status='ACTIVE'
+ AND a.approved_at>=TO_DATE('&from_date','YYYY-MM-DD')
+ AND a.approved_at<TO_DATE('&to_date_exclusive','YYYY-MM-DD')
+ORDER BY p.program_id,a.application_id
+신규:SELECT p.program_id,p.detail_program_name,a.application_id,a.student_id,
+ a.approved_at,c.earned_mileage
+FROM program p JOIN mileage_standard ms ON ms.program_id=p.program_id
+JOIN mileage_application a ON a.standard_id=ms.standard_id
+JOIN mileage_accrual c ON c.application_id=a.application_id
+WHERE a.status='APPROVED' AND c.status='ACTIVE'
+ AND a.approved_at>=TO_DATE('2026-10-01','YYYY-MM-DD')
+ AND a.approved_at<TO_DATE('2026-11-01','YYYY-MM-DD')
+ORDER BY p.program_id,a.application_id
+
+PROGRAM_ID DETAIL_PROGRAM_NAME                                                                                  APPLICATION_ID STUDENT_ID APPROVED_AT                 EARNED_MILEAGE
+---------- ---------------------------------------------------------------------------------------------------- -------------- ---------- --------------------------- --------------
+         1 가상 해커톤                                                                                                        1          1 26/10/20 10:00:00.000000000            100
+         1 가상 해커톤                                                                                                        2          1 26/10/20 10:00:00.000000000            300
+         2 가상 SQL 특강                                                                                                      3          2 26/10/20 10:00:00.000000000             50
+         3 가상 PBL 발표회                                                                                                    4          3 26/10/20 10:00:00.000000000             80
+         3 가상 PBL 발표회                                                                                                    5          4 26/10/20 10:00:00.000000000            200
+         3 가상 PBL 발표회                                                                                                   11          2 26/10/20 10:00:00.000000000             80
+
+6개 행이 선택되었습니다. 
+
+이전:SELECT p.program_id,p.detail_program_name,NVL(x.total_mileage,0) total_mileage,NVL(x.approval_count,0) approval_count
+FROM program p LEFT JOIN (
+ SELECT ms.program_id,SUM(c.earned_mileage) total_mileage,COUNT(*) approval_count
+ FROM mileage_standard ms JOIN mileage_application a ON a.standard_id=ms.standard_id
+ JOIN mileage_accrual c ON c.application_id=a.application_id
+ WHERE a.status='APPROVED' AND c.status='ACTIVE'
+ AND a.approved_at>=TO_DATE('&from_date','YYYY-MM-DD')
+ AND a.approved_at<TO_DATE('&to_date_exclusive','YYYY-MM-DD')
+ GROUP BY ms.program_id
+) x ON x.program_id=p.program_id ORDER BY p.program_id
+신규:SELECT p.program_id,p.detail_program_name,NVL(x.total_mileage,0) total_mileage,NVL(x.approval_count,0) approval_count
+FROM program p LEFT JOIN (
+ SELECT ms.program_id,SUM(c.earned_mileage) total_mileage,COUNT(*) approval_count
+ FROM mileage_standard ms JOIN mileage_application a ON a.standard_id=ms.standard_id
+ JOIN mileage_accrual c ON c.application_id=a.application_id
+ WHERE a.status='APPROVED' AND c.status='ACTIVE'
+ AND a.approved_at>=TO_DATE('2026-10-01','YYYY-MM-DD')
+ AND a.approved_at<TO_DATE('2026-11-01','YYYY-MM-DD')
+ GROUP BY ms.program_id
+) x ON x.program_id=p.program_id ORDER BY p.program_id
+
+PROGRAM_ID DETAIL_PROGRAM_NAME                                                                                  TOTAL_MILEAGE APPROVAL_COUNT
+---------- ---------------------------------------------------------------------------------------------------- ------------- --------------
+         1 가상 해커톤                                                                                                     400              2
+         2 가상 SQL 특강                                                                                                    50              1
+         3 가상 PBL 발표회                                                                                                 360              3
+
+
+APPLICATION_ID STUDENT_ID STUDENT_NAME                                       DETAIL_PROGRAM_NAME                                                                                  PARTICIPATION_AWARD_
+-------------- ---------- -------------------------------------------------- ---------------------------------------------------------------------------------------------------- --------------------
+APPLIED_MILEAGE APPLIED_AT                  FILE_COUNT
+--------------- --------------------------- ----------
+FILE_NAMES
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+STORAGE_PATHS                                                                                                                                                                                           
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+             6          5 가상학생5                                           가상 해커톤                                                                                           PARTICIPATION        
+            100 26/10/15 09:00:00.000000000          2 
+demo_6.pdf; extra_demo.pdf                                                                                                                                                                              
+/virtual/evidence/demo_6.pdf; /virtual/evidence/extra_demo.pdf                                                                                                                                          
+
+            10          9 가상학생9                                           가상 SQL 특강                                                                                         PARTICIPATION        
+             50 26/10/15 09:00:00.000000000          1 
+demo_10.pdf                                                                                                                                                                                             
+/virtual/evidence/demo_10.pdf                                                                                                                                                                           
+
+
+
+PROJECT_ID PROJECT_BUDGET_ID ITEM_CODE                      ITEM_NAME                                                                                            INITIAL_AMOUNT CURRENT_AMOUNT
+---------- ----------------- ------------------------------ ---------------------------------------------------------------------------------------------------- -------------- --------------
+SPENDING_LIMIT APPROVED_EXPENSE    BALANCE AVAILABLE_LIMIT EXECUTION_RATE
+-------------- ---------------- ---------- --------------- --------------
+         1                 1 PERSONNEL                      인건비                                                                                                      1000000        1000000 
+       1000000           300000     700000          700000             30
+
+         1                 2 STUDENT_LABOR                  학생인건비                                                                                                   2000000        2000000 
+       2000000           600000    1400000         1400000             30
+
+         1                 3 EQUIPMENT                      연구장비시설비                                                                                                1500000        1500000 
+       1500000           500000    1000000         1000000          33.33
+
+         1                 4 ACTIVITY                       연구활동비                                                                                                   1000000        1100000 
+        800000           100000    1000000          700000           9.09
+
+         1                 5 MATERIAL                       연구재료비                                                                                                    500000         500000 
+        500000                0     500000          500000              0
+
+         1                 6 ALLOWANCE                      연구수당                                                                                                      300000         300000 
+        300000                0     300000          300000              0
+
+         1                 7 INDIRECT                       간접비                                                                                                            0              0 
+             0                0          0               0              0
+
+
+7개 행이 선택되었습니다. 
+
+이전:SELECT * FROM v_budget_summary WHERE project_id=&project_id ORDER BY project_budget_id
+신규:SELECT * FROM v_budget_summary WHERE project_id=1 ORDER BY project_budget_id
+
+PROJECT_ID PROJECT_BUDGET_ID ITEM_CODE                      ITEM_NAME                                                                                            INITIAL_AMOUNT CURRENT_AMOUNT
+---------- ----------------- ------------------------------ ---------------------------------------------------------------------------------------------------- -------------- --------------
+SPENDING_LIMIT APPROVED_EXPENSE    BALANCE AVAILABLE_LIMIT EXECUTION_RATE
+-------------- ---------------- ---------- --------------- --------------
+         1                 1 PERSONNEL                      인건비                                                                                                      1000000        1000000 
+       1000000           300000     700000          700000             30
+
+         1                 2 STUDENT_LABOR                  학생인건비                                                                                                   2000000        2000000 
+       2000000           600000    1400000         1400000             30
+
+         1                 3 EQUIPMENT                      연구장비시설비                                                                                                1500000        1500000 
+       1500000           500000    1000000         1000000          33.33
+
+         1                 4 ACTIVITY                       연구활동비                                                                                                   1000000        1100000 
+        800000           100000    1000000          700000           9.09
+
+         1                 5 MATERIAL                       연구재료비                                                                                                    500000         500000 
+        500000                0     500000          500000              0
+
+         1                 6 ALLOWANCE                      연구수당                                                                                                      300000         300000 
+        300000                0     300000          300000              0
+
+         1                 7 INDIRECT                       간접비                                                                                                            0              0 
+             0                0          0               0              0
+
+
+7개 행이 선택되었습니다. 
+
+이전:SELECT p.professor_id,p.name,NVL(x.approved_amount,0) approved_amount
+FROM professor p LEFT JOIN (
+ SELECT e.professor_id,SUM(e.expense_amount) approved_amount FROM expense e
+ JOIN project_budget b ON b.project_budget_id=e.project_budget_id
+ WHERE e.status='APPROVED' AND b.project_id=&project_id GROUP BY e.professor_id
+) x ON x.professor_id=p.professor_id ORDER BY p.professor_id
+신규:SELECT p.professor_id,p.name,NVL(x.approved_amount,0) approved_amount
+FROM professor p LEFT JOIN (
+ SELECT e.professor_id,SUM(e.expense_amount) approved_amount FROM expense e
+ JOIN project_budget b ON b.project_budget_id=e.project_budget_id
+ WHERE e.status='APPROVED' AND b.project_id=1 GROUP BY e.professor_id
+) x ON x.professor_id=p.professor_id ORDER BY p.professor_id
+
+PROFESSOR_ID NAME                                               APPROVED_AMOUNT
+------------ -------------------------------------------------- ---------------
+           1 가상교수A                                                    600000
+           2 가상교수B                                                    600000
+           3 가상교수C                                                    300000
+
+이전:SELECT s.expense_subject_id,s.subject_name,NVL(x.approved_amount,0) approved_amount
+FROM expense_subject s LEFT JOIN (
+ SELECT e.expense_subject_id,SUM(e.expense_amount) approved_amount FROM expense e
+ JOIN project_budget b ON b.project_budget_id=e.project_budget_id
+ WHERE e.status='APPROVED' AND b.project_id=&project_id GROUP BY e.expense_subject_id
+) x ON x.expense_subject_id=s.expense_subject_id ORDER BY s.expense_subject_id
+신규:SELECT s.expense_subject_id,s.subject_name,NVL(x.approved_amount,0) approved_amount
+FROM expense_subject s LEFT JOIN (
+ SELECT e.expense_subject_id,SUM(e.expense_amount) approved_amount FROM expense e
+ JOIN project_budget b ON b.project_budget_id=e.project_budget_id
+ WHERE e.status='APPROVED' AND b.project_id=1 GROUP BY e.expense_subject_id
+) x ON x.expense_subject_id=s.expense_subject_id ORDER BY s.expense_subject_id
+
+EXPENSE_SUBJECT_ID SUBJECT_NAME                                                                                         APPROVED_AMOUNT
+------------------ ---------------------------------------------------------------------------------------------------- ---------------
+                 1 산학협력                                                                                                       700000
+                 2 전공                                                                                                          500000
+                 3 융합                                                                                                          300000
+
+이전:SELECT e.professor_id,p.name,e.expense_subject_id,s.subject_name,SUM(e.expense_amount) approved_amount
+FROM expense e JOIN professor p ON p.professor_id=e.professor_id
+JOIN expense_subject s ON s.expense_subject_id=e.expense_subject_id
+JOIN project_budget b ON b.project_budget_id=e.project_budget_id
+WHERE e.status='APPROVED' AND b.project_id=&project_id
+GROUP BY e.professor_id,p.name,e.expense_subject_id,s.subject_name ORDER BY e.professor_id,e.expense_subject_id
+신규:SELECT e.professor_id,p.name,e.expense_subject_id,s.subject_name,SUM(e.expense_amount) approved_amount
+FROM expense e JOIN professor p ON p.professor_id=e.professor_id
+JOIN expense_subject s ON s.expense_subject_id=e.expense_subject_id
+JOIN project_budget b ON b.project_budget_id=e.project_budget_id
+WHERE e.status='APPROVED' AND b.project_id=1
+GROUP BY e.professor_id,p.name,e.expense_subject_id,s.subject_name ORDER BY e.professor_id,e.expense_subject_id
+
+PROFESSOR_ID NAME                                               EXPENSE_SUBJECT_ID SUBJECT_NAME                                                                                         APPROVED_AMOUNT
+------------ -------------------------------------------------- ------------------ ---------------------------------------------------------------------------------------------------- ---------------
+           1 가상교수A                                                            1 산학협력                                                                                                       200000
+           1 가상교수A                                                            2 전공                                                                                                          400000
+           2 가상교수B                                                            1 산학협력                                                                                                       500000
+           2 가상교수B                                                            2 전공                                                                                                          100000
+           3 가상교수C                                                            3 융합                                                                                                          300000
+
+이전:SELECT l.log_id,l.target_type,l.target_id,l.action_type,l.actor_user_id,u.login_id,
+ l.processed_at,l.old_value,l.new_value,l.reason
+FROM change_log l JOIN user_account u ON u.user_id=l.actor_user_id
+WHERE l.target_type='&target_type' AND l.target_id=&target_id ORDER BY l.processed_at,l.log_id
+신규:SELECT l.log_id,l.target_type,l.target_id,l.action_type,l.actor_user_id,u.login_id,
+ l.processed_at,l.old_value,l.new_value,l.reason
+FROM change_log l JOIN user_account u ON u.user_id=l.actor_user_id
+WHERE l.target_type='MILEAGE' AND l.target_id=1 ORDER BY l.processed_at,l.log_id
+
+    LOG_ID TARGET_TYPE                                         TARGET_ID ACTION_TYPE                    ACTOR_USER_ID LOGIN_ID                                           PROCESSED_AT
+---------- -------------------------------------------------- ---------- ------------------------------ ------------- -------------------------------------------------- ---------------------------
+OLD_VALUE                                                                        NEW_VALUE
+-------------------------------------------------------------------------------- --------------------------------------------------------------------------------
+REASON                                                                                                                                                                                                  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        28 MILEAGE                                                     1 SUBMIT                                   101 student_demo_1                                     26/10/27 08:29:05.980957000 
+                                                                                 PENDING                                                                          
+Student submission                                                                                                                                                                                      
+
+        29 MILEAGE                                                     1 APPROVED                                   1 master_demo                                        26/10/27 08:29:05.999260000 
+PENDING                                                                          APPROVED                                                                         
+가상 검토 결과                                                                                                                                                                                           
+
+
+
+TARGET_TYPE                                        ACTION_TYPE                     LOG_COUNT
+-------------------------------------------------- ------------------------------ ----------
+BUDGET                                             UPDATE                                  1
+EXPENSE                                            APPROVED                                7
+EXPENSE                                            CANCELLED                               1
+EXPENSE                                            REJECTED                                1
+EXPENSE                                            SUBMIT                                 12
+MILEAGE                                            APPROVED                                7
+MILEAGE                                            CANCELLED                               1
+MILEAGE                                            REJECTED                                2
+MILEAGE                                            REVOKED                                 1
+MILEAGE                                            SUBMIT                                 12
+
+10개 행이 선택되었습니다. 
+
+
+    LOG_ID TARGET_TYPE                                         TARGET_ID ACTION_TYPE                    ACTOR_USER_ID LOGIN_ID                                           PROCESSED_AT
+---------- -------------------------------------------------- ---------- ------------------------------ ------------- -------------------------------------------------- ---------------------------
+OLD_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NEW_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REASON                                                                                                                                                                                                  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         1 STUDENT_CHANGE_REQUEST                                      1 SUBMIT                                   101 student_demo_1                                     26/10/27 08:29:05.873415000 
+                                                                                                                                                                                                        
+PENDING                                                                                                                                                                                                 
+Student change request                                                                                                                                                                                  
+
+         2 STUDENT_CHANGE_REQUEST                                      1 APPROVE                                    2 admin_demo                                         26/10/27 08:29:05.893229000 
+mobile_phone=010-0000-0001;email=student1@example.invalid                                                                                                                                               
+mobile_phone=010-1111-0001;email=student1.new@example.invalid                                                                                                                                           
+연락처 확인 완료                                                                                                                                                                                          
+
+         3 STUDENT_CHANGE_REQUEST                                      2 SUBMIT                                   102 student_demo_2                                     26/10/27 08:29:05.894936000 
+                                                                                                                                                                                                        
+PENDING                                                                                                                                                                                                 
+Student change request                                                                                                                                                                                  
+
+         4 STUDENT_CHANGE_REQUEST                                      2 REJECT                                     2 admin_demo                                         26/10/27 08:29:05.895130000 
+PENDING                                                                                                                                                                                                 
+REJECTED                                                                                                                                                                                                
+증빙 정보 불일치                                                                                                                                                                                          
+
+         5 STUDENT_CHANGE_REQUEST                                      3 SUBMIT                                   103 student_demo_3                                     26/10/27 08:29:05.896193000 
+                                                                                                                                                                                                        
+PENDING                                                                                                                                                                                                 
+Student change request                                                                                                                                                                                  
+
+         6 STUDENT_CHANGE_REQUEST                                      4 SUBMIT                                   104 student_demo_4                                     26/10/27 08:29:05.896345000 
+                                                                                                                                                                                                        
+PENDING                                                                                                                                                                                                 
+Student change request                                                                                                                                                                                  
+
+         7 STUDENT_CHANGE_REQUEST                                      4 APPROVE                                    1 master_demo                                        26/10/27 08:29:05.899084000 
+sms_yn=N                                                                                                                                                                                                
+sms_yn=Y                                                                                                                                                                                                
+SMS 수신 동의 확인                                                                                                                                                                                       
+
+         8 STUDENT_CHANGE_REQUEST                                      5 SUBMIT                                   105 student_demo_5                                     26/10/27 08:29:05.899283000 
+                                                                                                                                                                                                        
+PENDING                                                                                                                                                                                                 
+Student change request                                                                                                                                                                                  
+
+         9 STUDENT_CHANGE_REQUEST                                      5 REJECT                                     1 master_demo                                        26/10/27 08:29:05.899383000 
+PENDING                                                                                                                                                                                                 
+REJECTED                                                                                                                                                                                                
+본인 확인 자료 부족                                                                                                                                                                                       
+
+        10 TOPCIT_ROUND                                                1 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.914890000 
+                                                                                                                                                                                                        
+2026년 제1회/2026-05-16                                                                                                                                                                                 
+Round registration                                                                                                                                                                                      
+
+        11 TOPCIT_ROUND                                                2 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.915056000 
+                                                                                                                                                                                                        
+2026년 제2회/2026-09-19                                                                                                                                                                                 
+Round registration                                                                                                                                                                                      
+
+        12 TOPCIT_SCORE                                                1 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.920957000 
+                                                                                                                                                                                                        
+600                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        13 TOPCIT_SCORE                                                2 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.921171000 
+                                                                                                                                                                                                        
+700                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        14 TOPCIT_SCORE                                                3 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.921251000 
+                                                                                                                                                                                                        
+800                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        15 TOPCIT_SCORE                                                4 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.921347000 
+                                                                                                                                                                                                        
+500                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        16 TOPCIT_SCORE                                                5 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.921416000 
+                                                                                                                                                                                                        
+900                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        17 TOPCIT_SCORE                                                6 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.921522000 
+                                                                                                                                                                                                        
+650                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        18 TOPCIT_SCORE                                                7 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.921585000 
+                                                                                                                                                                                                        
+750                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        19 TOPCIT_SCORE                                                8 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.921643000 
+
+    LOG_ID TARGET_TYPE                                         TARGET_ID ACTION_TYPE                    ACTOR_USER_ID LOGIN_ID                                           PROCESSED_AT
+---------- -------------------------------------------------- ---------- ------------------------------ ------------- -------------------------------------------------- ---------------------------
+OLD_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NEW_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REASON                                                                                                                                                                                                  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                                                                                                                                        
+550                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        20 TOPCIT_SCORE                                                9 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.921726000 
+                                                                                                                                                                                                        
+640                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        21 TOPCIT_SCORE                                                9 UPDATE                                     2 admin_demo                                         26/10/27 08:29:05.926754000 
+640                                                                                                                                                                                                     
+650                                                                                                                                                                                                     
+채점 정정: 640에서 650으로 변경                                                                                                                                                                           
+
+        22 TOPCIT_SCORE                                               10 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.927061000 
+                                                                                                                                                                                                        
+680                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        23 TOPCIT_SCORE                                               11 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.927132000 
+                                                                                                                                                                                                        
+800                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        24 TOPCIT_SCORE                                               12 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.927191000 
+                                                                                                                                                                                                        
+520                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        25 TOPCIT_SCORE                                               13 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.927246000 
+                                                                                                                                                                                                        
+850                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        26 TOPCIT_SCORE                                               14 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.927302000 
+                                                                                                                                                                                                        
+600                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+        27 TOPCIT_SCORE                                               15 CREATE                                     2 admin_demo                                         26/10/27 08:29:05.927355000 
+                                                                                                                                                                                                        
+700                                                                                                                                                                                                     
+Score registration                                                                                                                                                                                      
+
+
+27개 행이 선택되었습니다. 
+
+이전:SELECT survey_id,survey_name,program_id,detail_program_name,
+ question_id,question_order,question_text,question_type,average_score,response_count
+FROM v_satisfaction_summary
+WHERE survey_id=&survey_id
+ORDER BY question_order,question_id
+신규:SELECT survey_id,survey_name,program_id,detail_program_name,
+ question_id,question_order,question_text,question_type,average_score,response_count
+FROM v_satisfaction_summary
+WHERE survey_id=1
+ORDER BY question_order,question_id
+
+ SURVEY_ID SURVEY_NAME                                                                                                                                            PROGRAM_ID
+---------- ------------------------------------------------------------------------------------------------------------------------------------------------------ ----------
+DETAIL_PROGRAM_NAME                                                                                  QUESTION_ID QUESTION_ORDER
+---------------------------------------------------------------------------------------------------- ----------- --------------
+QUESTION_TEXT
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+QUESTION_T AVERAGE_SCORE RESPONSE_COUNT
+---------- ------------- --------------
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     1              1 
+프로그램 전반에 만족하나요?                                                                                                                                                                                
+SCORE               4.67              3
+
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     2              2 
+운영 안내가 충분했나요?                                                                                                                                                                                   
+SCORE                  4              3
+
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     3              3 
+개선 의견을 남겨 주세요.                                                                                                                                                                                  
+TEXT                                  3
+
+
+이전:BEGIN satisfaction_workflow.open_result(2,&survey_id,:q10_result); END;
+
+신규:BEGIN satisfaction_workflow.open_result(2,1,:q10_result); END;
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+
+ SURVEY_ID SURVEY_NAME                                                                                                                                            PROGRAM_ID
+---------- ------------------------------------------------------------------------------------------------------------------------------------------------------ ----------
+DETAIL_PROGRAM_NAME                                                                                  QUESTION_ID QUESTION_ORDER
+---------------------------------------------------------------------------------------------------- ----------- --------------
+QUESTION_TEXT
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+QUESTION_T AVERAGE_SCORE RESPONSE_COUNT
+---------- ------------- --------------
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     1              1 
+프로그램 전반에 만족하나요?                                                                                                                                                                                
+SCORE               4.67              3
+
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     2              2 
+운영 안내가 충분했나요?                                                                                                                                                                                   
+SCORE                  4              3
+
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     3              3 
+개선 의견을 남겨 주세요.                                                                                                                                                                                  
+TEXT                                  3
+
+
+
+이전:SELECT survey_id,program_id,detail_program_name,question_id,question_text,question_type,
+ department_id,department_name,grade,average_score,response_count,answer_text
+FROM v_satisfaction_by_department
+WHERE survey_id=&survey_id
+ORDER BY department_name,grade,question_order,answer_text
+신규:SELECT survey_id,program_id,detail_program_name,question_id,question_text,question_type,
+ department_id,department_name,grade,average_score,response_count,answer_text
+FROM v_satisfaction_by_department
+WHERE survey_id=1
+ORDER BY department_name,grade,question_order,answer_text
+
+ SURVEY_ID PROGRAM_ID DETAIL_PROGRAM_NAME                                                                                  QUESTION_ID
+---------- ---------- ---------------------------------------------------------------------------------------------------- -----------
+QUESTION_TEXT
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+QUESTION_T DEPARTMENT_ID DEPARTMENT_NAME                                                                                           GRADE AVERAGE_SCORE RESPONSE_COUNT
+---------- ------------- ---------------------------------------------------------------------------------------------------- ---------- ------------- --------------
+ANSWER_TEXT                                                                                                                                                                                             
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         1          1 가상 해커톤                                                                                                     1 
+프로그램 전반에 만족하나요?                                                                                                                                                                                
+SCORE                 10 가상 컴퓨터학과                                                                                                 1             5              2 
+                                                                                                                                                                                                        
+
+         1          1 가상 해커톤                                                                                                     2 
+운영 안내가 충분했나요?                                                                                                                                                                                   
+SCORE                 10 가상 컴퓨터학과                                                                                                 1           4.5              2 
+                                                                                                                                                                                                        
+
+         1          1 가상 해커톤                                                                                                     3 
+개선 의견을 남겨 주세요.                                                                                                                                                                                  
+TEXT                  10 가상 컴퓨터학과                                                                                                 1                            1 
+다음에도 참여하고 싶습니다.                                                                                                                                                                                
+
+         1          1 가상 해커톤                                                                                                     3 
+개선 의견을 남겨 주세요.                                                                                                                                                                                  
+TEXT                  10 가상 컴퓨터학과                                                                                                 1                            1 
+실습 시간이 충분해서 좋았습니다.                                                                                                                                                                            
+
+         1          1 가상 해커톤                                                                                                     1 
+프로그램 전반에 만족하나요?                                                                                                                                                                                
+SCORE                 10 가상 컴퓨터학과                                                                                                 2             4              1 
+                                                                                                                                                                                                        
+
+         1          1 가상 해커톤                                                                                                     2 
+운영 안내가 충분했나요?                                                                                                                                                                                   
+SCORE                 10 가상 컴퓨터학과                                                                                                 2             3              1 
+                                                                                                                                                                                                        
+
+         1          1 가상 해커톤                                                                                                     3 
+개선 의견을 남겨 주세요.                                                                                                                                                                                  
+TEXT                  10 가상 컴퓨터학과                                                                                                 2                            1 
+안내 자료를 조금 더 일찍 받고 싶습니다.                                                                                                                                                                     
+
+
+7개 행이 선택되었습니다. 
+
+이전:BEGIN satisfaction_workflow.open_department_result(2,&survey_id,:q11_result); END;
+
+신규:BEGIN satisfaction_workflow.open_department_result(2,1,:q11_result); END;
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+
+ SURVEY_ID SURVEY_NAME                                                                                                                                            PROGRAM_ID
+---------- ------------------------------------------------------------------------------------------------------------------------------------------------------ ----------
+DETAIL_PROGRAM_NAME                                                                                  QUESTION_ID QUESTION_ORDER
+---------------------------------------------------------------------------------------------------- ----------- --------------
+QUESTION_TEXT
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+QUESTION_T DEPARTMENT_ID DEPARTMENT_NAME                                                                                           GRADE AVERAGE_SCORE RESPONSE_COUNT
+---------- ------------- ---------------------------------------------------------------------------------------------------- ---------- ------------- --------------
+ANSWER_TEXT                                                                                                                                                                                             
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     1              1 
+프로그램 전반에 만족하나요?                                                                                                                                                                                
+SCORE                 10 가상 컴퓨터학과                                                                                                 1             5              2 
+                                                                                                                                                                                                        
+
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     2              2 
+운영 안내가 충분했나요?                                                                                                                                                                                   
+SCORE                 10 가상 컴퓨터학과                                                                                                 1           4.5              2 
+                                                                                                                                                                                                        
+
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     3              3 
+개선 의견을 남겨 주세요.                                                                                                                                                                                  
+TEXT                  10 가상 컴퓨터학과                                                                                                 1                            1 
+다음에도 참여하고 싶습니다.                                                                                                                                                                                
+
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     3              3 
+개선 의견을 남겨 주세요.                                                                                                                                                                                  
+TEXT                  10 가상 컴퓨터학과                                                                                                 1                            1 
+실습 시간이 충분해서 좋았습니다.                                                                                                                                                                            
+
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     1              1 
+프로그램 전반에 만족하나요?                                                                                                                                                                                
+SCORE                 10 가상 컴퓨터학과                                                                                                 2             4              1 
+                                                                                                                                                                                                        
+
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     2              2 
+운영 안내가 충분했나요?                                                                                                                                                                                   
+SCORE                 10 가상 컴퓨터학과                                                                                                 2             3              1 
+                                                                                                                                                                                                        
+
+         1 가상 PBL 프로그램 만족도                                                                                                                                          1 
+가상 해커톤                                                                                                     3              3 
+개선 의견을 남겨 주세요.                                                                                                                                                                                  
+TEXT                  10 가상 컴퓨터학과                                                                                                 2                            1 
+안내 자료를 조금 더 일찍 받고 싶습니다.                                                                                                                                                                     
+
+
+
+
+    LOG_ID TARGET_TYPE                                         TARGET_ID ACTION_TYPE                    ACTOR_LOGIN                                        PROCESSED_AT
+---------- -------------------------------------------------- ---------- ------------------------------ -------------------------------------------------- ---------------------------
+OLD_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NEW_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REASON                                                                                                                                                                                                  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        73 SATISFACTION_SURVEY                                         1 CREATE                         admin_demo                                         26/10/27 08:29:06.234631000 
+                                                                                                                                                                                                        
+DRAFT                                                                                                                                                                                                   
+Survey created                                                                                                                                                                                          
+
+        74 SURVEY_QUESTION                                             1 CREATE                         admin_demo                                         26/10/27 08:29:06.245101000 
+                                                                                                                                                                                                        
+survey=1; order=1; type=SCORE                                                                                                                                                                           
+Question created                                                                                                                                                                                        
+
+        75 SURVEY_QUESTION                                             2 CREATE                         admin_demo                                         26/10/27 08:29:06.245365000 
+                                                                                                                                                                                                        
+survey=1; order=2; type=SCORE                                                                                                                                                                           
+Question created                                                                                                                                                                                        
+
+        76 SURVEY_QUESTION                                             3 CREATE                         admin_demo                                         26/10/27 08:29:06.245463000 
+                                                                                                                                                                                                        
+survey=1; order=3; type=TEXT                                                                                                                                                                            
+Question created                                                                                                                                                                                        
+
+        77 SATISFACTION_SURVEY                                         1 OPEN                           admin_demo                                         26/10/27 08:29:06.252641000 
+DRAFT                                                                                                                                                                                                   
+OPEN                                                                                                                                                                                                    
+시연을 위해 조사 공개                                                                                                                                                                                     
+
+        78 SURVEY_RESPONSE                                             1 COMPLETE                       student_demo_1                                     26/10/27 08:29:06.289613000 
+IN_PROGRESS                                                                                                                                                                                             
+COMPLETED                                                                                                                                                                                               
+Survey response completed                                                                                                                                                                               
+
+        79 SURVEY_RESPONSE                                             2 COMPLETE                       student_demo_2                                     26/10/27 08:29:06.291078000 
+IN_PROGRESS                                                                                                                                                                                             
+COMPLETED                                                                                                                                                                                               
+Survey response completed                                                                                                                                                                               
+
+        80 SURVEY_RESPONSE                                             3 COMPLETE                       student_demo_3                                     26/10/27 08:29:06.291569000 
+IN_PROGRESS                                                                                                                                                                                             
+COMPLETED                                                                                                                                                                                               
+Survey response completed                                                                                                                                                                               
+
+
+8개 행이 선택되었습니다. 
+
+
+Trigger TEST_FAIL_LOG이(가) 컴파일되었습니다.
+
+PASS | Q05 total | expected=810 actual=810
+PASS | Q05 student1 | expected=400 actual=400
+PASS | Q05 no application | expected=0 actual=0
+PASS | Q05 revoked excluded | expected=0 actual=0
+PASS | Q05 zero students | expected=6 actual=6
+PASS | Q06 program1 | expected=400 actual=400
+PASS | Q07 pending applications | expected=2 actual=2
+PASS | Q07 multiple evidence | expected=2 actual=2
+PASS | Q08 seven items | expected=7 actual=7
+PASS | Q08 approved total | expected=1500000 actual=1500000
+PASS | Q08 no approved expense balance | expected=500000 actual=500000
+PASS | Q08 zero budget | expected=0 actual=0
+PASS | Q08 amended budget balance | expected=1000000 actual=1000000
+PASS | Q08 amended budget rate | expected=9.09 actual=9.09
+PASS | Q09 professor1 | expected=600000 actual=600000
+PASS | Q09 industry | expected=700000 actual=700000
+PASS | duplicate student number | expected=-1 actual=-1
+PASS | duplicate login | expected=-1 actual=-1
+PASS | missing program FK | expected=-2291 actual=-2291
+PASS | missing student FK | expected=-2291 actual=-2291
+PASS | negative mileage | expected=-2290 actual=-2290
+PASS | duplicate mileage application | expected=-1 actual=-1
+PASS | duplicate accrual | expected=-1 actual=-1
+PASS | zero expense | expected=-2290 actual=-2290
+PASS | negative expense | expected=-2290 actual=-2290
+PASS | unknown state | expected=-2290 actual=-2290
+PASS | admin cannot approve | expected=-20001 actual=-20001
+PASS | student cannot approve | expected=-20001 actual=-20001
+PASS | repeat mileage approval | expected=-20002 actual=-20002
+PASS | null state transition | expected=-20002 actual=-20002
+PASS | own submission required | expected=-20001 actual=-20001
+PASS | approve adds 100 | expected=100 actual=100
+PASS | approval history | expected=1 actual=1
+PASS | revoke removes 100 | expected=0 actual=0
+PASS | reject creates no accrual | expected=0 actual=0
+PASS | application snapshot | expected=100 actual=100
+PASS | exact limit allowed | expected=0 actual=0
+PASS | over limit rejected | expected=-20003 actual=-20003
+PASS | repeat expense approval | expected=-20002 actual=-20002
+PASS | over limit stays pending | expected=1 actual=1
+PASS | expense approval adds | expected=150000 actual=150000
+PASS | expense cancellation removes | expected=100000 actual=100000
+PASS | limit below approved sum | expected=-20003 actual=-20003
+PASS | limit above budget | expected=-20007 actual=-20007
+PASS | admin cannot change budget | expected=-20001 actual=-20001
+PASS | mileage log failure | expected=-20999 actual=-20999
+PASS | rollback mileage status | expected=1 actual=1
+PASS | rollback mileage accrual | expected=0 actual=0
+PASS | rollback mileage history | expected=0 actual=0
+PASS | expense log failure | expected=-20999 actual=-20999
+PASS | rollback expense status | expected=1 actual=1
+PASS | rollback expense history | expected=0 actual=0
+PASS | budget log failure | expected=-20999 actual=-20999
+PASS | rollback budget amount | expected=1000000 actual=1000000
+PASS | rollback budget history | expected=0 actual=0
+PASS | rollback log count unchanged | expected=80 actual=80
+PASS | accrual consistency | expected=0 actual=0
+ALL TESTS PASSED
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+PASS | three roles | expected=3 actual=3
+PASS | student permissions | expected=4 actual=4
+PASS | ten students | expected=10 actual=10
+PASS | two departments | expected=2 actual=2
+PASS | two grades | expected=2 actual=2
+PASS | five change requests | expected=5 actual=5
+PASS | approved requests | expected=2 actual=2
+PASS | rejected requests | expected=2 actual=2
+PASS | pending requests | expected=1 actual=1
+PASS | two TOPCIT rounds | expected=2 actual=2
+PASS | fifteen TOPCIT scores | expected=15 actual=15
+PASS | Q01 own profile allowed | expected=1 actual=1
+PASS | Q01 admin profile allowed | expected=1 actual=1
+PASS | Q01 master profile allowed | expected=1 actual=1
+PASS | Q01 other student blocked | expected=-20001 actual=-20001
+PASS | Q01 expected current phone | expected=1 actual=1
+PASS | duplicate student number rejected | expected=-1 actual=-1
+PASS | duplicate student failure keeps existing data | expected=10 actual=10
+PASS | duplicate login rejected | expected=-1 actual=-1
+PASS | duplicate login failure keeps existing data | expected=12 actual=12
+PASS | missing role rejected | expected=-2291 actual=-2291
+PASS | missing department rejected | expected=-2291 actual=-2291
+PASS | missing TOPCIT student rejected | expected=-2291 actual=-2291
+PASS | missing TOPCIT round rejected | expected=-2291 actual=-2291
+PASS | duplicate student round rejected | expected=-1 actual=-1
+PASS | duplicate TOPCIT failure keeps existing data | expected=15 actual=15
+PASS | TOPCIT below minimum rejected | expected=-2290 actual=-2290
+PASS | TOPCIT above maximum rejected | expected=-2290 actual=-2290
+PASS | TOPCIT minimum accepted | expected=0 actual=0
+PASS | TOPCIT maximum accepted | expected=1000 actual=1000
+PASS | pending request keeps base data | expected=student3@example.invalid actual=student3@example.invalid
+PASS | Q02 approved request details | expected=2 actual=2
+PASS | approval changes base data | expected=student3.pending@example.invalid actual=student3.pending@example.invalid
+PASS | approval metadata | expected=1 actual=1
+PASS | approval change log | expected=1 actual=1
+PASS | rejection keeps base data | expected=student3@example.invalid actual=student3@example.invalid
+PASS | rejection metadata | expected=1 actual=1
+PASS | rejection change log | expected=1 actual=1
+PASS | approved request cannot be processed again | expected=-20011 actual=-20011
+PASS | rejected request cannot be processed again | expected=-20011 actual=-20011
+PASS | Q03 student1 score change | expected=50 actual=50
+PASS | Q03 first previous score null | expected=1 actual=1
+PASS | Q04 expected average and count | expected=1 actual=1
+PASS | TOPCIT score updated | expected=690 actual=690
+PASS | TOPCIT update change log | expected=1 actual=1
+PASS | same TOPCIT score rejected | expected=-20014 actual=-20014
+PASS | Q12 student request logs | expected=9 actual=9
+PASS | Q12 TOPCIT round logs | expected=2 actual=2
+PASS | Q12 TOPCIT score logs | expected=16 actual=16
+PASS | student approval log failure | expected=-20999 actual=-20999
+PASS | rollback student base data | expected=1 actual=1
+PASS | rollback student request state | expected=1 actual=1
+PASS | rollback student log count | expected=81 actual=81
+PASS | TOPCIT update log failure | expected=-20999 actual=-20999
+PASS | rollback TOPCIT score | expected=680 actual=680
+PASS | rollback TOPCIT log count | expected=80 actual=80
+STUDENT/TOPCIT TESTS PASSED
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+Trigger TEST_FAIL_LOG이(가) 삭제되었습니다.
+
+
+Trigger TEST_FAIL_SATISFACTION_LOG이(가) 컴파일되었습니다.
+
+PASS | satisfaction package compile errors | expected=0 actual=0
+PASS | satisfaction valid package and views | expected=4 actual=4
+PASS | Q10 completed score average | expected=4.67 actual=4.67
+PASS | Q10 excludes incomplete response | expected=3 actual=3
+PASS | Q10 second score average | expected=4 actual=4
+PASS | Q10 second score response count | expected=3 actual=3
+PASS | Q10 text answers have no average | expected=1 actual=1
+PASS | Q11 department and grade aggregation | expected=1 actual=1
+PASS | Q11 anonymous text opinions | expected=3 actual=3
+PASS | Q11 omits student identifiers | expected=0 actual=0
+PASS | student cannot read admin results | expected=-20051 actual=-20051
+PASS | student cannot submit for another student | expected=-20051 actual=-20051
+PASS | duplicate student survey response | expected=-1 actual=-1
+PASS | out of range satisfaction score | expected=-20058 actual=-20058
+PASS | required questions prevent completion | expected=-20059 actual=-20059
+PASS | satisfaction log failure returned | expected=-20999 actual=-20999
+PASS | satisfaction response status rolled back
+PASS | satisfaction completion log rolled back | expected=0 actual=0
+SATISFACTION TESTS PASSED
+
+
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+Trigger TEST_FAIL_SATISFACTION_LOG이(가) 삭제되었습니다.
+
+DEMO COMPLETED

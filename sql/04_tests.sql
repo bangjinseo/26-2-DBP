@@ -69,6 +69,45 @@ BEGIN
  error_is('repeat mileage approval','BEGIN pbl_workflow.process_mileage(1,'||v_app_approved||',''APPROVED'',''test''); END;',-20002);
  error_is('null state transition','BEGIN pbl_workflow.process_mileage(1,'||v_app_pending||',NULL,''test''); END;',-20002);
  error_is('own submission required',q'[DECLARE v NUMBER; BEGIN pbl_workflow.submit_mileage(101,10,1,v); END;]',-20001);
+ -- 취소 권한: 활성 본인 또는 활성 마스터만 허용하고, 거부 시 상태·이력·로그를 보존한다.
+ SAVEPOINT case_inactive_cancel;
+ UPDATE user_account SET is_active='N' WHERE user_id=105;
+ SELECT COUNT(*) INTO v_before FROM change_log;
+ error_is('inactive owner cannot cancel',
+  'BEGIN pbl_workflow.process_mileage(105,'||v_app_pending||',''CANCELLED'',''test inactive cancel''); END;',-20001,TRUE);
+ SELECT COUNT(*) INTO v_n FROM mileage_application WHERE application_id=v_app_pending AND status='PENDING';
+ eq('inactive cancel keeps pending state',v_n,1);
+ SELECT COUNT(*) INTO v_n FROM mileage_process_history WHERE application_id=v_app_pending;
+ eq('inactive cancel creates no history',v_n,0);
+ SELECT COUNT(*) INTO v_after FROM change_log;
+ eq('inactive cancel creates no log',v_after,v_before);
+ ROLLBACK TO case_inactive_cancel;
+ error_is('other student cannot cancel',
+  'BEGIN pbl_workflow.process_mileage(101,'||v_app_pending||',''CANCELLED'',''test other cancel''); END;',-20001);
+ error_is('admin cannot cancel',
+  'BEGIN pbl_workflow.process_mileage(2,'||v_app_pending||',''CANCELLED'',''test admin cancel''); END;',-20001);
+ SAVEPOINT case_active_owner_cancel;
+ pbl_workflow.process_mileage(105,v_app_pending,'CANCELLED','test active owner cancel');
+ SELECT COUNT(*) INTO v_n FROM mileage_application WHERE application_id=v_app_pending AND status='CANCELLED';
+ eq('active owner can cancel',v_n,1);
+ SELECT COUNT(*) INTO v_n FROM mileage_process_history
+  WHERE application_id=v_app_pending AND process_status='CANCELLED' AND processor_id=105;
+ eq('active owner cancel creates history',v_n,1);
+ SELECT COUNT(*) INTO v_n FROM change_log
+  WHERE target_type='MILEAGE' AND target_id=v_app_pending AND action_type='CANCELLED' AND actor_user_id=105;
+ eq('active owner cancel creates log',v_n,1);
+ ROLLBACK TO case_active_owner_cancel;
+ SAVEPOINT case_master_cancel;
+ UPDATE user_account SET is_active='N' WHERE user_id=105;
+ pbl_workflow.process_mileage(1,v_app_pending,'CANCELLED','test master cancel');
+ SELECT COUNT(*) INTO v_n FROM mileage_application WHERE application_id=v_app_pending AND status='CANCELLED';
+ eq('master can cancel inactive owner application',v_n,1);
+ ROLLBACK TO case_master_cancel;
+ SAVEPOINT case_inactive_master_cancel;
+ UPDATE user_account SET is_active='N' WHERE user_id=1;
+ error_is('inactive master cannot cancel',
+  'BEGIN pbl_workflow.process_mileage(1,'||v_app_pending||',''CANCELLED'',''test inactive master cancel''); END;',-20001);
+ ROLLBACK TO case_inactive_master_cancel;
  -- 정상 승인 전후와 전액 회수. 신청/적립/로그가 함께 생성됨을 확인.
  SAVEPOINT case_mileage;
  pbl_workflow.process_mileage(1,v_app_pending,'APPROVED','test approve');
@@ -191,7 +230,7 @@ DECLARE
 BEGIN
  -- 최소 정상 데이터 규모와 역할·권한 데이터.
  SELECT COUNT(*) INTO v_n FROM role; eq('three roles',v_n,3);
- SELECT COUNT(*) INTO v_n FROM role_permission WHERE role_id=1; eq('student permissions',v_n,4);
+ SELECT COUNT(*) INTO v_n FROM role_permission WHERE role_id=1; eq('student permissions',v_n,6);
  SELECT COUNT(*) INTO v_n FROM student; eq('ten students',v_n,10);
  SELECT COUNT(DISTINCT department_id) INTO v_n FROM student; eq('two departments',v_n,2);
  SELECT COUNT(DISTINCT grade) INTO v_n FROM student; eq('two grades',v_n,2);
