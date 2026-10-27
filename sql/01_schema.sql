@@ -151,13 +151,14 @@ CREATE OR REPLACE PACKAGE pbl_workflow AS
 END pbl_workflow;
 /
 CREATE OR REPLACE PACKAGE BODY pbl_workflow AS
- PROCEDURE require_role(p_actor NUMBER,p_master BOOLEAN) IS v_role user_account.user_type%TYPE;
+ PROCEDURE require_permission(p_actor NUMBER,p_code VARCHAR2) IS v_count NUMBER;
  BEGIN
-  SELECT user_type INTO v_role FROM user_account WHERE user_id=p_actor AND is_active='Y';
-  IF (p_master AND v_role <> 'MASTER') OR (NOT p_master AND v_role NOT IN ('ADMIN','MASTER')) THEN
-   RAISE_APPLICATION_ERROR(-20001,'Role not authorized');
-  END IF;
- EXCEPTION WHEN NO_DATA_FOUND THEN RAISE_APPLICATION_ERROR(-20001,'Active actor required');
+  SELECT COUNT(*) INTO v_count FROM user_account u
+   JOIN role r ON r.role_id=u.role_id AND r.is_active='Y'
+   JOIN role_permission rp ON rp.role_id=u.role_id
+   JOIN permission p ON p.permission_id=rp.permission_id AND p.function_code=p_code
+   WHERE u.user_id=p_actor AND u.is_active='Y';
+  IF v_count=0 THEN RAISE_APPLICATION_ERROR(-20001,'Active user lacks required permission'); END IF;
  END;
  PROCEDURE log_change(p_actor NUMBER,p_type VARCHAR2,p_id NUMBER,p_action VARCHAR2,
  p_old VARCHAR2,p_new VARCHAR2,p_reason VARCHAR2) IS
@@ -175,6 +176,7 @@ CREATE OR REPLACE PACKAGE BODY pbl_workflow AS
   SAVEPOINT mileage_submit;
   SELECT s.user_id INTO v_owner FROM student s JOIN user_account u ON u.user_id=s.user_id
    WHERE s.student_id=p_student AND u.is_active='Y' AND u.user_type='STUDENT';
+  require_permission(p_actor,'MILEAGE_SUBMIT');
   IF p_actor IS NULL OR p_actor<>v_owner THEN RAISE_APPLICATION_ERROR(-20001,'Student may submit own application only'); END IF;
   SELECT grant_mileage INTO v_points FROM mileage_standard WHERE standard_id=p_standard;
   INSERT INTO mileage_application(student_id,standard_id,applied_mileage)
@@ -191,8 +193,9 @@ CREATE OR REPLACE PACKAGE BODY pbl_workflow AS
    FROM mileage_application a JOIN student s ON s.student_id=a.student_id
    WHERE a.application_id=p_id FOR UPDATE OF a.status;
   IF p_action='CANCELLED' THEN
-   IF p_actor IS NULL OR p_actor<>v_owner THEN require_role(p_actor,TRUE); END IF;
-  ELSE require_role(p_actor,TRUE); END IF;
+   IF p_actor IS NULL OR p_actor<>v_owner THEN require_permission(p_actor,'MILEAGE_PROCESS');
+   ELSE require_permission(p_actor,'MILEAGE_SELF_CANCEL'); END IF;
+  ELSE require_permission(p_actor,'MILEAGE_PROCESS'); END IF;
   IF p_action IS NULL OR NOT ((v_old='PENDING' AND p_action IN ('APPROVED','REJECTED','CANCELLED'))
    OR (v_old='APPROVED' AND p_action='REVOKED')) THEN
    RAISE_APPLICATION_ERROR(-20002,'Invalid mileage state transition');
@@ -216,7 +219,7 @@ CREATE OR REPLACE PACKAGE BODY pbl_workflow AS
    p_date DATE,p_detail VARCHAR2,p_amount NUMBER,p_id OUT NUMBER) IS v_budget NUMBER;
  BEGIN
   SAVEPOINT expense_submit;
-  require_role(p_actor,FALSE);
+  require_permission(p_actor,'EXPENSE_SUBMIT');
   SELECT b.project_budget_id INTO v_budget FROM project_budget b JOIN budget_project p ON p.project_id=b.project_id
    JOIN budget_item i ON i.budget_item_id=b.budget_item_id
    WHERE b.project_budget_id=p_budget AND b.status='CONFIRMED' AND p.status='ACTIVE' AND i.is_active='Y';
@@ -229,7 +232,7 @@ CREATE OR REPLACE PACKAGE BODY pbl_workflow AS
   v_budget NUMBER; v_old expense.status%TYPE; v_amount NUMBER; v_limit NUMBER; v_total NUMBER; v_status project_budget.status%TYPE;
  BEGIN
   SAVEPOINT expense_process;
-  require_role(p_actor,TRUE); require_reason(p_reason);
+  require_permission(p_actor,'EXPENSE_PROCESS'); require_reason(p_reason);
   SELECT project_budget_id INTO v_budget FROM expense WHERE expense_id=p_id;
   -- 같은 사업예산 행을 잠근 뒤 승인 합계를 계산. 예산 변경도 동일한 잠금을 사용한다.
   SELECT spending_limit,status INTO v_limit,v_status FROM project_budget WHERE project_budget_id=v_budget FOR UPDATE;
@@ -239,6 +242,7 @@ CREATE OR REPLACE PACKAGE BODY pbl_workflow AS
    RAISE_APPLICATION_ERROR(-20002,'Invalid expense state transition');
   END IF;
   IF p_action='APPROVED' THEN
+   -- 사업 종료 후에도 이미 등록된 대기 건은 정상 검토할 수 있다.
    IF v_status<>'CONFIRMED' THEN RAISE_APPLICATION_ERROR(-20006,'Budget must be confirmed'); END IF;
    SELECT NVL(SUM(expense_amount),0) INTO v_total FROM expense WHERE project_budget_id=v_budget AND status='APPROVED';
    IF v_total+v_amount>v_limit THEN RAISE_APPLICATION_ERROR(-20003,'Spending limit exceeded'); END IF;
@@ -253,7 +257,7 @@ CREATE OR REPLACE PACKAGE BODY pbl_workflow AS
   v_old_amount NUMBER; v_old_limit NUMBER; v_total NUMBER;
  BEGIN
   SAVEPOINT budget_change;
-  require_role(p_actor,TRUE); require_reason(p_reason);
+  require_permission(p_actor,'BUDGET_MANAGE'); require_reason(p_reason);
   SELECT current_amount,spending_limit INTO v_old_amount,v_old_limit FROM project_budget WHERE project_budget_id=p_budget FOR UPDATE;
   IF p_amount IS NULL OR p_limit IS NULL OR p_amount<0 OR p_limit<0 OR p_limit>p_amount THEN
    RAISE_APPLICATION_ERROR(-20007,'Invalid budget amount or limit');
@@ -315,20 +319,17 @@ END student_topcit_workflow;
 /
 
 CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
- PROCEDURE require_admin(p_actor NUMBER) IS
-  v_type user_account.user_type%TYPE;
+ PROCEDURE require_permission(p_actor NUMBER,p_code VARCHAR2) IS v_count NUMBER;
  BEGIN
-  SELECT user_type INTO v_type
-  FROM user_account
-  WHERE user_id=p_actor AND is_active='Y';
-  IF v_type NOT IN ('ADMIN','MASTER') THEN
-   RAISE_APPLICATION_ERROR(-20001,'Administrator role required');
-  END IF;
- EXCEPTION
-  WHEN NO_DATA_FOUND THEN RAISE_APPLICATION_ERROR(-20001,'Active administrator required');
+  SELECT COUNT(*) INTO v_count FROM user_account u
+   JOIN role r ON r.role_id=u.role_id AND r.is_active='Y'
+   JOIN role_permission rp ON rp.role_id=u.role_id
+   JOIN permission p ON p.permission_id=rp.permission_id AND p.function_code=p_code
+   WHERE u.user_id=p_actor AND u.is_active='Y';
+  IF v_count=0 THEN RAISE_APPLICATION_ERROR(-20001,'Active user lacks required permission'); END IF;
  END;
 
- PROCEDURE require_read_access(p_actor NUMBER,p_student NUMBER) IS
+ PROCEDURE require_read_access(p_actor NUMBER,p_student NUMBER,p_self_code VARCHAR2,p_admin_code VARCHAR2) IS
   v_type user_account.user_type%TYPE;
   v_owner student.user_id%TYPE;
  BEGIN
@@ -336,12 +337,15 @@ CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
   FROM user_account
   WHERE user_id=p_actor AND is_active='Y';
   IF v_type='STUDENT' THEN
+   require_permission(p_actor,p_self_code);
    SELECT user_id INTO v_owner FROM student WHERE student_id=p_student;
    IF v_owner<>p_actor THEN
     RAISE_APPLICATION_ERROR(-20001,'Student may read own data only');
    END IF;
   ELSIF v_type NOT IN ('ADMIN','MASTER') THEN
    RAISE_APPLICATION_ERROR(-20001,'Role not authorized');
+  ELSE
+   require_permission(p_actor,p_admin_code);
   END IF;
  EXCEPTION
   WHEN NO_DATA_FOUND THEN RAISE_APPLICATION_ERROR(-20001,'Active actor and target student required');
@@ -370,6 +374,7 @@ CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
   v_count NUMBER:=0;
  BEGIN
   SAVEPOINT student_change_submit;
+  require_permission(p_actor,'STUDENT_CHANGE_REQUEST');
   SELECT s.mobile_phone,s.email,s.sms_yn INTO v_mobile,v_email,v_sms
   FROM student s JOIN user_account u ON u.user_id=s.user_id
   WHERE s.student_id=p_student AND s.user_id=p_actor
@@ -420,7 +425,7 @@ CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
   v_requested_new VARCHAR2(4000);
  BEGIN
   SAVEPOINT student_change_process;
-  require_admin(p_actor);
+  require_permission(p_actor,'STUDENT_MANAGE');
   IF p_action IS NULL OR p_action NOT IN ('APPROVED','REJECTED') THEN
    RAISE_APPLICATION_ERROR(-20015,'Action must be APPROVED or REJECTED');
   END IF;
@@ -490,7 +495,7 @@ CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
   v_changed_at TIMESTAMP;
  BEGIN
   SAVEPOINT student_status_change;
-  require_admin(p_actor);
+  require_permission(p_actor,'STUDENT_MANAGE');
   IF TRIM(p_reason) IS NULL THEN
    RAISE_APPLICATION_ERROR(-20004,'Change reason is required');
   END IF;
@@ -540,7 +545,7 @@ CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
   p_actor NUMBER,p_round_name VARCHAR2,p_exam_date DATE,p_id OUT NUMBER) IS
  BEGIN
   SAVEPOINT topcit_round_create;
-  require_admin(p_actor);
+  require_permission(p_actor,'TOPCIT_MANAGE');
   INSERT INTO topcit_round(round_name,exam_date,created_by)
   VALUES(p_round_name,p_exam_date,p_actor) RETURNING round_id INTO p_id;
   log_change(p_actor,'TOPCIT_ROUND',p_id,'CREATE',NULL,p_round_name||'/'||TO_CHAR(p_exam_date,'YYYY-MM-DD'),'Round registration');
@@ -552,7 +557,7 @@ CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
   v_stored_score topcit_score.total_score%TYPE;
  BEGIN
   SAVEPOINT topcit_score_create;
-  require_admin(p_actor);
+  require_permission(p_actor,'TOPCIT_MANAGE');
   validate_topcit_score(p_score);
   INSERT INTO topcit_score(student_id,round_id,total_score,created_by,remark)
   VALUES(p_student,p_round,p_score,p_actor,p_remark)
@@ -567,7 +572,7 @@ CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
   v_stored_score topcit_score.total_score%TYPE;
  BEGIN
   SAVEPOINT topcit_score_update;
-  require_admin(p_actor);
+  require_permission(p_actor,'TOPCIT_MANAGE');
   validate_topcit_score(p_new_score);
   SELECT total_score INTO v_old FROM topcit_score WHERE score_id=p_score_id FOR UPDATE;
   IF v_old=p_new_score THEN
@@ -584,14 +589,14 @@ CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
  PROCEDURE open_student_profile(
   p_actor NUMBER,p_student NUMBER,p_result OUT SYS_REFCURSOR) IS
  BEGIN
-  require_read_access(p_actor,p_student);
+  require_read_access(p_actor,p_student,'STUDENT_SELF_READ','STUDENT_MANAGE_READ');
   OPEN p_result FOR SELECT * FROM v_student_profile WHERE student_id=p_student;
  END;
 
  PROCEDURE open_topcit_history(
   p_actor NUMBER,p_student NUMBER,p_result OUT SYS_REFCURSOR) IS
  BEGIN
-  require_read_access(p_actor,p_student);
+  require_read_access(p_actor,p_student,'TOPCIT_SELF_READ','TOPCIT_MANAGE_READ');
   OPEN p_result FOR
    SELECT score_id,student_id,round_id,round_name,exam_date,total_score,previous_score,score_change
    FROM v_topcit_score_change WHERE student_id=p_student ORDER BY exam_date,round_id;

@@ -102,6 +102,13 @@ BEGIN
  pbl_workflow.process_expense(1,v_exp_pending,'CANCELLED','test cancel');
  SELECT approved_expense INTO v_n FROM v_budget_summary WHERE project_budget_id=4; eq('expense cancellation removes',v_n,100000);
  ROLLBACK TO case_cancel;
+ SAVEPOINT case_closed_project_pending_expense;
+ UPDATE budget_project SET status='CLOSED' WHERE project_id=(
+  SELECT project_id FROM project_budget WHERE project_budget_id=4);
+ pbl_workflow.process_expense(1,v_exp_pending,'APPROVED','closed project pending expense');
+ SELECT COUNT(*) INTO v_n FROM expense WHERE expense_id=v_exp_pending AND status='APPROVED';
+ eq('pending expense can be approved after project closes',v_n,1);
+ ROLLBACK TO case_closed_project_pending_expense;
  error_is('limit below approved sum',q'[BEGIN pbl_workflow.change_budget(1,1,1000000,299999,'test'); END;]',-20003);
  error_is('limit above budget',q'[BEGIN pbl_workflow.change_budget(1,1,1000000,1000001,'test'); END;]',-20007);
  error_is('admin cannot change budget',q'[BEGIN pbl_workflow.change_budget(2,1,1000000,1000000,'test'); END;]',-20001);
