@@ -7,6 +7,7 @@ SET SERVEROUTPUT ON
 ALTER SESSION SET TIME_ZONE = '+09:00';
 @@fixtures/00_common_fixture.sql
 @@01_schema.sql
+@@03_satisfaction_schema.sql
 DECLARE v NUMBER;
 BEGIN
  SELECT COUNT(*) INTO v FROM user_errors;
@@ -14,6 +15,9 @@ BEGIN
 END;
 /
 @@02_seed.sql
+@@03_satisfaction_seed.sql
 @@03_queries.sql
+@@06_satisfaction_queries.sql
 @@04_tests.sql
+@@07_satisfaction_tests.sql
 PROMPT DEMO COMPLETED
