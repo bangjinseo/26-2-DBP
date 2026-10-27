@@ -12,15 +12,28 @@ INSERT INTO permission VALUES(4,'본인 TOPCIT 조회','TOPCIT_SELF_READ','SELF'
 INSERT INTO permission VALUES(5,'TOPCIT 관리','TOPCIT_MANAGE','WRITE');
 INSERT INTO permission VALUES(6,'변경로그 조회','AUDIT_READ','READ');
 INSERT INTO permission VALUES(7,'권한 관리','ROLE_MANAGE','MASTER');
+INSERT INTO permission VALUES(8,'마일리지 신청','MILEAGE_SUBMIT','SELF');
+INSERT INTO permission VALUES(9,'마일리지 처리','MILEAGE_PROCESS','APPROVE');
+INSERT INTO permission VALUES(10,'지출 신청','EXPENSE_SUBMIT','WRITE');
+INSERT INTO permission VALUES(11,'지출 처리','EXPENSE_PROCESS','APPROVE');
+INSERT INTO permission VALUES(12,'예산 관리','BUDGET_MANAGE','WRITE');
+INSERT INTO permission VALUES(13,'학생정보 조회','STUDENT_MANAGE_READ','READ');
+INSERT INTO permission VALUES(14,'TOPCIT 조회','TOPCIT_MANAGE_READ','READ');
+INSERT INTO permission VALUES(15,'본인 마일리지 신청 취소','MILEAGE_SELF_CANCEL','SELF');
 
 INSERT INTO role_permission VALUES(1,1);
 INSERT INTO role_permission VALUES(1,2);
 INSERT INTO role_permission VALUES(1,4);
+INSERT INTO role_permission VALUES(1,8);
+INSERT INTO role_permission VALUES(1,15);
 INSERT INTO role_permission VALUES(2,1);
 INSERT INTO role_permission VALUES(2,3);
 INSERT INTO role_permission VALUES(2,4);
 INSERT INTO role_permission VALUES(2,5);
 INSERT INTO role_permission VALUES(2,6);
+INSERT INTO role_permission VALUES(2,10);
+INSERT INTO role_permission VALUES(2,13);
+INSERT INTO role_permission VALUES(2,14);
 INSERT INTO role_permission SELECT 3,permission_id FROM permission;
 
 INSERT INTO user_account(user_id,role_id,login_id,password_info,user_type)

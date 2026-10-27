@@ -39,11 +39,11 @@ Oracle AI Database 26ai Free와 SQL Developer의 스크립트 실행(F5)을 기�
 | 6 | `sql/03_queries.sql` | Q01~Q09와 Q12, 입력조건·예상값 |
 | 7 | `sql/06_satisfaction_queries.sql` | Q10/Q11과 만족도 공통로그 조회 |
 | 8 | `sql/04_tests.sql` | 학생·TOPCIT·마일리지·예산 오류·경계·권한·로그·롤백 자동 검증 |
-| 9 | `sql/07_satisfaction_tests.sql` | 만족도 집계·권한·중복·범위·로그 롤백 검증 |
+| 9 | `sql/07_satisfaction_tests.sql` | 만족도 집계·권한·마감·빈 답변·답변 변경이력 검증 |
 | 선택 | `sql/05_workflow_examples.sql` | 기존 마일리지·지출 승인 전후 시연 |
 
 학생·TOPCIT 수작업 예상값과 필수 검증 대응은 [`docs/학생_TOPCIT_구현및검증.md`](docs/%ED%95%99%EC%83%9D_TOPCIT_%EA%B5%AC%ED%98%84%EB%B0%8F%EA%B2%80%EC%A6%9D.md)에 정리했다.
-종료 사업의 대기 지출과 기능권한 통일안은 코드에 적용하지 않고 [`docs/정책결정검토.md`](docs/%EC%A0%95%EC%B1%85%EA%B2%B0%EC%A0%95%EA%B2%80%ED%86%A0.md)에 현재 상태·선택지·추천안·수정 계획만 정리했다.
+종료 사업의 기존 대기 지출 처리와 기능권한 기준은 [`docs/정책결정검토.md`](docs/%EC%A0%95%EC%B1%85%EA%B2%B0%EC%A0%95%EA%B2%80%ED%86%A0.md)에 구현 기준을 정리했다.
 
 빈 테스트 스키마에서는 `sql/run_demo.sql`을 파일로 열고 F5로 실행한다. 이 파일이 위 순서를 자동으로 호출한다.
 `@@` 상대경로를 사용하므로 파일 내용을 새 탭에 복사하지 않는다.
@@ -140,10 +140,10 @@ DDL은 암묵적으로 커밋되므로 전체 생성 스크립트는 빈 전용 
 - `fixtures`는 단독 실습용이다. 팀 공통 DDL을 사용하는 경우 중복 실행하지 않는다.
 - 공통 `USER_ACCOUNT`, `STUDENT`, `PROGRAM`, `PROFESSOR`, `CHANGE_LOG`는 하나만 유지한다.
 - 마일리지·예산 코드는 `student.student_name`, `user_account.user_type`을 사용하므로 통합 정의에서 해당 계약을 보존했다.
-- 만족도 구현은 `sql/03_satisfaction_schema.sql`에서 네 업무 테이블, 두 결과 뷰와 `SATISFACTION_WORKFLOW`를 생성한다. 시드·Q10/Q11은 `sql/03_satisfaction_seed.sql`과 `sql/06_satisfaction_queries.sql`에 둔다.
+- 만족도 구현은 `sql/03_satisfaction_schema.sql`에서 조사·문항·응답·답변 및 답변 변경이력 테이블, 두 결과 뷰와 `SATISFACTION_WORKFLOW`를 생성한다. 시드는 실행 월에 맞춘 조사 2개와 응답 10건을 만든다.
 - 만족도 구현은 공통 사용자·역할·권한·로그 테이블을 재사용한다. `SATISFACTION_RESPOND`, `SATISFACTION_RESULT_READ`, `SATISFACTION_MANAGE` 기능권한을 역할에 연결하고, 업무 패키지에서 활성 계정과 권한을 검사한다.
-- 만족도는 조사 종료일까지 응답할 수 있고, 한 학생은 조사당 하나의 응답만 가진다. 문항 형식은 `SCORE`(1~5) 또는 `TEXT`이며, 필수 문항을 모두 답해야 완료할 수 있다. Q10/Q11 집계에서는 완료된 응답만 사용한다.
-- 만족도 조사 생성·공개/종료·문항 생성·응답 완료를 `CHANGE_LOG`에 기록한다. 업무 패키지는 자체 COMMIT을 하지 않고 로그 실패 시 SAVEPOINT까지 되돌린다. 직접 테이블 접근 권한을 가진 동일 스키마 사용자는 패키지 검증을 우회할 수 있다.
+- 만족도는 조사 종료 후 기존 진행 중 응답도 수정·제출할 수 없고, 한 학생은 조사당 하나의 응답만 가진다. 문항 추가·수정·삭제는 초안 조사에서만 허용하며 공개 후 보존한다. 답변은 점수 1~5 또는 공백이 아닌 내용이어야 하며, 수정 전후 값은 상세 이력과 `CHANGE_LOG`에 기록된다.
+- 만족도 조사 생성·공개/종료·문항 생성·수정·삭제·응답 완료를 `CHANGE_LOG`에 기록한다. 업무 패키지는 자체 COMMIT을 하지 않고 로그 실패 시 SAVEPOINT까지 되돌린다. 직접 테이블 접근 권한을 가진 동일 스키마 사용자는 패키지 검증을 우회할 수 있다.
 - 학생·TOPCIT와 만족도 통합 후 별도 빈 Oracle 스키마에서 전체 테스트를 다시 실행한다. 공통 테이블이 바뀌면 같은 절차로 재검증한다.
 
 ## 현재 검증 상태

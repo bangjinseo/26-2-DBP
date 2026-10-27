@@ -29,5 +29,5 @@ SELECT l.log_id,l.target_type,l.target_id,l.action_type,u.login_id actor_login,
  l.processed_at,DBMS_LOB.SUBSTR(l.old_value,4000,1) old_value,
  DBMS_LOB.SUBSTR(l.new_value,4000,1) new_value,l.reason
 FROM change_log l JOIN user_account u ON u.user_id=l.actor_user_id
-WHERE l.target_type IN ('SATISFACTION_SURVEY','SURVEY_QUESTION','SURVEY_RESPONSE')
+WHERE l.target_type IN ('SATISFACTION_SURVEY','SURVEY_QUESTION','SURVEY_RESPONSE','SURVEY_RESPONSE_DETAIL')
 ORDER BY l.processed_at,l.log_id;

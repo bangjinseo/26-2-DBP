@@ -14,6 +14,7 @@ DECLARE
  v_score NUMBER;
  v_count NUMBER;
  v_question NUMBER;
+ v_question2 NUMBER;
  v_response NUMBER;
  v_status VARCHAR2(15);
  v_code NUMBER;
@@ -47,23 +48,23 @@ BEGIN
 
  SELECT average_score,response_count INTO v_score,v_count
   FROM v_satisfaction_summary WHERE survey_id=1 AND question_order=1;
- eq('Q10 completed score average',v_score,4.67);
- eq('Q10 excludes incomplete response',v_count,3);
+ eq('Q10 completed score average',v_score,4.5);
+ eq('Q10 excludes incomplete response',v_count,4);
  SELECT average_score,response_count INTO v_score,v_count
   FROM v_satisfaction_summary WHERE survey_id=1 AND question_order=2;
  eq('Q10 second score average',v_score,4);
- eq('Q10 second score response count',v_count,3);
+ eq('Q10 second score response count',v_count,4);
  SELECT COUNT(*) INTO v_n FROM v_satisfaction_summary
-  WHERE survey_id=1 AND question_type='TEXT' AND average_score IS NULL AND response_count=3;
+  WHERE survey_id=1 AND question_type='TEXT' AND average_score IS NULL AND response_count=4;
  eq('Q10 text answers have no average',v_n,1);
 
  SELECT COUNT(*) INTO v_n FROM v_satisfaction_by_department
   WHERE survey_id=1 AND question_order=1 AND department_id=10 AND grade=1
-    AND average_score=5 AND response_count=2;
+    AND average_score=4.67 AND response_count=3;
  eq('Q11 department and grade aggregation',v_n,1);
  SELECT COUNT(*) INTO v_n FROM v_satisfaction_by_department
   WHERE survey_id=1 AND question_type='TEXT' AND answer_text IS NOT NULL;
- eq('Q11 anonymous text opinions',v_n,3);
+ eq('Q11 anonymous text opinions',v_n,4);
  SELECT COUNT(*) INTO v_n FROM user_tab_columns
   WHERE table_name='V_SATISFACTION_BY_DEPARTMENT'
     AND column_name IN ('STUDENT_ID','STUDENT_NAME','RESPONSE_ID');
@@ -83,7 +84,12 @@ BEGIN
   'INSERT INTO survey_response(survey_id,student_id) VALUES(1,1)',-1);
 
  SELECT question_id INTO v_question FROM survey_question WHERE survey_id=1 AND question_order=1;
+ SELECT question_id INTO v_question2 FROM survey_question WHERE survey_id=1 AND question_order=2;
  SELECT response_id INTO v_response FROM survey_response WHERE survey_id=1 AND student_id=4;
+ error_is('database rejects empty answer',
+  'INSERT INTO survey_response_detail(response_id,survey_id,question_id,score,answer_text) VALUES('||v_response||',1,'||v_question2||',NULL,NULL)',-2290);
+ error_is('database rejects blank text answer',
+  'INSERT INTO survey_response_detail(response_id,survey_id,question_id,score,answer_text) VALUES('||v_response||',1,'||v_question2||',NULL,''   '')',-2290);
  error_is('out of range satisfaction score',
   'DECLARE v NUMBER; BEGIN satisfaction_workflow.answer_question(104,'||v_response||','||v_question||',6,NULL); END;',-20058);
  error_is('required questions prevent completion',
@@ -93,6 +99,16 @@ BEGIN
  SAVEPOINT satisfaction_log_rollback;
  SELECT question_id INTO v_question FROM survey_question WHERE survey_id=1 AND question_order=2;
  satisfaction_workflow.answer_question(104,v_response,v_question,3,NULL);
+ SELECT question_id INTO v_question FROM survey_question WHERE survey_id=1 AND question_order=1;
+ satisfaction_workflow.answer_question(104,v_response,v_question,4,NULL);
+ SELECT COUNT(*) INTO v_n FROM survey_response_detail_history h
+  JOIN survey_response_detail d ON d.detail_id=h.detail_id
+  WHERE d.response_id=v_response AND d.question_id=v_question AND h.changed_by=104
+   AND h.old_score=3 AND h.new_score=4;
+ eq('answer edit history records old and new value',v_n,1);
+ SELECT COUNT(*) INTO v_n FROM change_log WHERE target_type='SURVEY_RESPONSE_DETAIL'
+  AND action_type='UPDATE' AND actor_user_id=104;
+ eq('answer edit writes common change log',v_n,1);
  SELECT question_id INTO v_question FROM survey_question WHERE survey_id=1 AND question_order=3;
  satisfaction_workflow.answer_question(104,v_response,v_question,NULL,'검증용 의견');
  v_code:=0;
@@ -107,6 +123,13 @@ BEGIN
  SELECT COUNT(*) INTO v_n FROM change_log
   WHERE target_type='SURVEY_RESPONSE' AND target_id=v_response AND action_type='COMPLETE';
  eq('satisfaction completion log rolled back',v_n,0);
+ SAVEPOINT satisfaction_closed_survey;
+ UPDATE satisfaction_survey SET survey_status='CLOSED' WHERE survey_id=1;
+ error_is('in-progress answer cannot change after survey closes',
+  'BEGIN satisfaction_workflow.answer_question(104,'||v_response||','||v_question||',2,NULL); END;',-20057);
+ error_is('in-progress response cannot submit after survey closes',
+  'BEGIN satisfaction_workflow.complete_response(104,'||v_response||'); END;',-20057);
+ ROLLBACK TO satisfaction_closed_survey;
  ROLLBACK TO satisfaction_log_rollback;
  DBMS_OUTPUT.PUT_LINE('SATISFACTION TESTS PASSED');
 EXCEPTION WHEN OTHERS THEN ROLLBACK; RAISE;
