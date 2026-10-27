@@ -1,16 +1,17 @@
 # PBL 미션 2 Oracle 데이터베이스 구현
 
 Oracle AI Database 26ai Free와 SQL Developer의 스크립트 실행(F5)을 기준으로 한 팀 통합 실습 저장소다.
-현재 `jinseo` 브랜치에는 기존 마일리지·예산 구현을 보존하면서 학생 인적사항 관리와 TOPCIT 점수 관리를 추가했다.
+현재 `jinseo` 브랜치는 마일리지·예산, 학생 인적사항·TOPCIT, 프로그램 만족도 구현을 통합한 상태다.
 
 ## 구현 범위
 
 - 학생·일반관리자·마스터관리자의 역할과 기능별 권한 데이터
 - 학생 기본정보, 학적·입학 기준정보, 학생정보 수정 요청과 승인·반려, 관리자 학적 변경 이력
 - TOPCIT 시험 회차, 학생별 회차 점수, 점수 수정 이력
+- 프로그램 만족도 조사·문항·학생 응답 및 프로그램/학과/학년별 결과
 - 공통 변경로그와 처리자 추적
 - 학생 본인 조회 범위를 검사하는 패키지 기반 조회
-- Q01~Q09 및 담당 영역 Q12
+- Q01~Q12
 - 마일리지 신청·적립과 예산·지출 기능은 기존 구현을 그대로 포함
 
 웹 화면, 실제 로그인, 실제 개인정보, 파일 업로드, Python 애플리케이션, 운영 배포는 범위에서 제외한다.
@@ -32,10 +33,13 @@ Oracle AI Database 26ai Free와 SQL Developer의 스크립트 실행(F5)을 기�
 |---:|---|---|
 | 1 | `sql/fixtures/00_common_fixture.sql` | 단독 검증용 공통·학생·TOPCIT DDL 17개 |
 | 2 | `sql/01_schema.sql` | 마일리지·예산 DDL과 전체 업무 패키지·뷰 |
-| 3 | `sql/fixtures/01_common_seed.sql` | 역할·학생·수정요청·TOPCIT 정상 가상 데이터 |
-| 4 | `sql/02_domain_seed.sql` | 마일리지·예산 정상 가상 데이터 |
-| 5 | `sql/03_queries.sql` | Q01~Q09와 Q12, 입력조건·예상값 |
-| 6 | `sql/04_tests.sql` | 오류·경계·승인·권한·로그·롤백 자동 검증 |
+| 3 | `sql/03_satisfaction_schema.sql` | 만족도 테이블·결과 뷰·권한 확인/업무 처리 패키지 |
+| 4 | `sql/02_seed.sql` | 공통 역할·학생·TOPCIT 및 마일리지·예산 가상 데이터 |
+| 5 | `sql/03_satisfaction_seed.sql` | 만족도 권한 부여와 가상 조사·응답 데이터 |
+| 6 | `sql/03_queries.sql` | Q01~Q09와 Q12, 입력조건·예상값 |
+| 7 | `sql/06_satisfaction_queries.sql` | Q10/Q11과 만족도 공통로그 조회 |
+| 8 | `sql/04_tests.sql` | 학생·TOPCIT·마일리지·예산 오류·경계·권한·로그·롤백 자동 검증 |
+| 9 | `sql/07_satisfaction_tests.sql` | 만족도 집계·권한·중복·범위·로그 롤백 검증 |
 | 선택 | `sql/05_workflow_examples.sql` | 기존 마일리지·지출 승인 전후 시연 |
 
 학생·TOPCIT 수작업 예상값과 필수 검증 대응은 [`docs/학생_TOPCIT_구현및검증.md`](docs/%ED%95%99%EC%83%9D_TOPCIT_%EA%B5%AC%ED%98%84%EB%B0%8F%EA%B2%80%EC%A6%9D.md)에 정리했다.
@@ -136,15 +140,18 @@ DDL은 암묵적으로 커밋되므로 전체 생성 스크립트는 빈 전용 
 - `fixtures`는 단독 실습용이다. 팀 공통 DDL을 사용하는 경우 중복 실행하지 않는다.
 - 공통 `USER_ACCOUNT`, `STUDENT`, `PROGRAM`, `PROFESSOR`, `CHANGE_LOG`는 하나만 유지한다.
 - 마일리지·예산 코드는 `student.student_name`, `user_account.user_type`을 사용하므로 통합 정의에서 해당 계약을 보존했다.
-- 만족도 담당 테이블은 이 브랜치에서 생성·수정하지 않았다.
-- 학생·TOPCIT 보완 후 별도 빈 Oracle 스키마에서 전체 테스트를 다시 실행했다. 팀 통합 브랜치의 공통 테이블이 바뀌면 같은 절차로 재검증한다.
+- 만족도 구현은 `sql/03_satisfaction_schema.sql`에서 네 업무 테이블, 두 결과 뷰와 `SATISFACTION_WORKFLOW`를 생성한다. 시드·Q10/Q11은 `sql/03_satisfaction_seed.sql`과 `sql/06_satisfaction_queries.sql`에 둔다.
+- 만족도 구현은 공통 사용자·역할·권한·로그 테이블을 재사용한다. `SATISFACTION_RESPOND`, `SATISFACTION_RESULT_READ`, `SATISFACTION_MANAGE` 기능권한을 역할에 연결하고, 업무 패키지에서 활성 계정과 권한을 검사한다.
+- 만족도는 조사 종료일까지 응답할 수 있고, 한 학생은 조사당 하나의 응답만 가진다. 문항 형식은 `SCORE`(1~5) 또는 `TEXT`이며, 필수 문항을 모두 답해야 완료할 수 있다. Q10/Q11 집계에서는 완료된 응답만 사용한다.
+- 만족도 조사 생성·공개/종료·문항 생성·응답 완료를 `CHANGE_LOG`에 기록한다. 업무 패키지는 자체 COMMIT을 하지 않고 로그 실패 시 SAVEPOINT까지 되돌린다. 직접 테이블 접근 권한을 가진 동일 스키마 사용자는 패키지 검증을 우회할 수 있다.
+- 학생·TOPCIT와 만족도 통합 후 별도 빈 Oracle 스키마에서 전체 테스트를 다시 실행한다. 공통 테이블이 바뀌면 같은 절차로 재검증한다.
 
 ## 현재 검증 상태
 
 - 검증일: 2026-10-27, 한국 시간 기준
-- 환경: Apple Silicon macOS 26.6.2, Podman Desktop 1.30.5, Oracle AI Database 26ai Free 23.26.3.0.0 ARM64
-- 실행: 기존 `PBL2`와 분리한 빈 검증 사용자에서 컨테이너 SQL*Plus로 `run_demo.sql` 전체 실행함
+- 환경: Apple Silicon macOS, Podman Desktop, Oracle AI Database 26ai Free 23.26.3.0.0 ARM64
+- 실행: 기존 스키마와 분리한 빈 검증 사용자에서 통합 `run_demo.sql` 전체 실행함
 - 문자셋: `NLS_LANG=KOREAN_KOREA.AL32UTF8`로 한국어 시드를 검증함
-- 결과: 최종 `run_demo.sql` 전체 실행에서 PASS 137개, `ALL TESTS PASSED`, `STUDENT/TOPCIT TESTS PASSED`, `DEMO COMPLETED` 확인함
-- 객체: 테이블 29개, 뷰 4개, 패키지 2개와 본문 2개 모두 VALID, `USER_ERRORS=0`임
-- 최신 테스트 실행 원문: `verification/student-topcit-audit-2026-10-27.txt`에 저장함
+- 결과: PASS 155개, `ALL TESTS PASSED`, `STUDENT/TOPCIT TESTS PASSED`, `SATISFACTION TESTS PASSED`, `DEMO COMPLETED` 확인함
+- 객체: 테이블 33개, 뷰 6개, 패키지 3개와 본문 3개 모두 VALID, `USER_ERRORS=0`임
+- 통합 실행 원문: `verification/integrated-oracle-validation-2026-10-27.txt`에 저장함

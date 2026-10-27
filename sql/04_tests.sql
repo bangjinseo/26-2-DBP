@@ -184,7 +184,7 @@ DECLARE
 BEGIN
  -- 최소 정상 데이터 규모와 역할·권한 데이터.
  SELECT COUNT(*) INTO v_n FROM role; eq('three roles',v_n,3);
- SELECT COUNT(*) INTO v_n FROM role_permission WHERE role_id=1; eq('student permissions',v_n,3);
+ SELECT COUNT(*) INTO v_n FROM role_permission WHERE role_id=1; eq('student permissions',v_n,4);
  SELECT COUNT(*) INTO v_n FROM student; eq('ten students',v_n,10);
  SELECT COUNT(DISTINCT department_id) INTO v_n FROM student; eq('two departments',v_n,2);
  SELECT COUNT(DISTINCT grade) INTO v_n FROM student; eq('two grades',v_n,2);
