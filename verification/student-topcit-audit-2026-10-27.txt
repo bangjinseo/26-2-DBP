@@ -1,0 +1,1411 @@
+
+세션이 변경되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+주석이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+테이블이 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+인덱스가 생성되었습니다.
+
+
+뷰가 생성되었습니다.
+
+
+뷰가 생성되었습니다.
+
+
+패키지가 생성되었습니다.
+
+
+패키지 본문이 생성되었습니다.
+
+
+뷰가 생성되었습니다.
+
+
+뷰가 생성되었습니다.
+
+
+패키지가 생성되었습니다.
+
+
+패키지 본문이 생성되었습니다.
+
+
+PL/SQL 처리가 정상적으로 완료되었습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+7 행이 생성되었습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+PL/SQL 처리가 정상적으로 완료되었습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+PL/SQL 처리가 정상적으로 완료되었습니다.
+
+
+PL/SQL 처리가 정상적으로 완료되었습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+PL/SQL 처리가 정상적으로 완료되었습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+1 개의 행이 만들어졌습니다.
+
+
+PL/SQL 처리가 정상적으로 완료되었습니다.
+
+
+커밋이 완료되었습니다.
+
+구   2:  student_topcit_workflow.open_student_profile(&actor_user_id,&target_student_id,:q01_cursor);
+신   2:  student_topcit_workflow.open_student_profile(101,1,:q01_cursor);
+
+PL/SQL 처리가 정상적으로 완료되었습니다.
+
+
+STUDENT_ID STUDENT_NO
+---------- --------------------------------------------------------------------------------
+STUDENT_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   USER_ID
+----------
+LOGIN_ID
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+COLLEGE_ID
+----------
+COLLEGE_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DEPARTMENT_ID
+-------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TRACK_TYPE
+------------------------------------------------------------------------------------------------------------------------
+CAMPUS
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     GRADE STATUS_CODE
+---------- --------------------------------------------------------------------------------
+STATUS_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+STATUS_CHANGED_AT							    ADMISSION_TYPE_CODE
+--------------------------------------------------------------------------- --------------------------------------------------------------------------------
+ADMISSION_TYPE_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ADMISSIO MOBILE_PHONE									  S
+-------- -------------------------------------------------------------------------------- -
+EMAIL
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 1 DEMO2026001
+가상학생1
+       101
+student_demo_1
+	 1
+가상 SW융합대학
+	   10
+가상 컴퓨터학과
+ENGINEERING
+본교
+	 1 ENROLLED
+재학
+26/10/27 11:59:33.606061						    FRESHMAN
+신입학
+26/03/02 010-1111-0001									  N
+student1.new@example.invalid
+
+
+구   9: WHERE r.student_id=&target_student_id
+신   9: WHERE r.student_id=1
+
+REQUEST_ID STUDENT_ID
+---------- ----------
+FIELD_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+OLD_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NEW_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REQUEST_STATUS									 REQUESTED_AT								     PROCESSOR_ID
+-------------------------------------------------------------------------------- --------------------------------------------------------------------------- ------------
+PROCESSOR_LOGIN
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PROCESSED_AT
+---------------------------------------------------------------------------
+PROCESS_COMMENT
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 1	    1
+mobile_phone
+010-0000-0001
+010-1111-0001
+APPROVED									 26/10/27 11:59:33.615742								2
+admin_demo
+26/10/27 11:59:33.640299
+연락처 확인 완료
+
+	 1	    1
+email
+student1@example.invalid
+student1.new@example.invalid
+APPROVED									 26/10/27 11:59:33.615742								2
+admin_demo
+26/10/27 11:59:33.640299
+연락처 확인 완료
+
+
+구   4: WHERE student_id=&student_id
+신   4: WHERE student_id=1
+
+  SCORE_ID STUDENT_ID	ROUND_ID
+---------- ---------- ----------
+ROUND_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+EXAM_DAT PREVIOUS_SCORE CURRENT_SCORE SCORE_CHANGE
+-------- -------------- ------------- ------------
+	 1	    1	       1
+2026년 제1회
+26/05/16			  600
+
+	 9	    1	       2
+2026년 제2회
+26/09/19	    600 	  650		50
+
+
+
+  ROUND_ID
+----------
+ROUND_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+EXAM_DAT DEPARTMENT_ID
+-------- -------------
+DEPARTMENT_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     GRADE AVERAGE_SCORE EXAMINEE_COUNT
+---------- ------------- --------------
+	 1
+2026년 제1회
+26/05/16	    10
+가상 컴퓨터학과
+	 1	  766.67	      3
+
+	 1
+2026년 제1회
+26/05/16	    10
+가상 컴퓨터학과
+	 2	     600	      2
+
+	 1
+2026년 제1회
+26/05/16	    20
+가상 소프트웨어학과
+	 1	     750	      1
+
+	 1
+2026년 제1회
+26/05/16	    20
+가상 소프트웨어학과
+	 2	     600	      2
+
+	 2
+2026년 제2회
+26/09/19	    10
+가상 컴퓨터학과
+	 1	  766.67	      3
+
+	 2
+2026년 제2회
+26/09/19	    10
+가상 컴퓨터학과
+	 2	     600	      2
+
+	 2
+2026년 제2회
+26/09/19	    20
+가상 소프트웨어학과
+	 1	     600	      1
+
+	 2
+2026년 제2회
+26/09/19	    20
+가상 소프트웨어학과
+	 2	     700	      1
+
+
+8 행이 선택되었습니다.
+
+
+STUDENT_ID
+----------
+STUDENT_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL_MILEAGE
+-------------
+	 1
+가상학생1
+	  400
+
+	 2
+가상학생2
+	  130
+
+	 3
+가상학생3
+	   80
+
+	 4
+가상학생4
+	  200
+
+	 5
+가상학생5
+	    0
+
+	 6
+가상학생6
+	    0
+
+	 7
+가상학생7
+	    0
+
+	 8
+가상학생8
+	    0
+
+	 9
+가상학생9
+	    0
+
+	10
+가상학생10
+	    0
+
+
+10 행이 선택되었습니다.
+
+구   1: SELECT * FROM v_student_mileage WHERE student_id=&student_id
+신   1: SELECT * FROM v_student_mileage WHERE student_id=1
+
+STUDENT_ID
+----------
+STUDENT_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL_MILEAGE
+-------------
+	 1
+가상학생1
+	  400
+
+
+구   7:  AND a.approved_at>=TO_DATE('&from_date','YYYY-MM-DD')
+신   7:  AND a.approved_at>=TO_DATE('2026-10-01','YYYY-MM-DD')
+구   8:  AND a.approved_at<TO_DATE('&to_date_exclusive','YYYY-MM-DD')
+신   8:  AND a.approved_at<TO_DATE('2026-11-01','YYYY-MM-DD')
+
+PROGRAM_ID
+----------
+DETAIL_PROGRAM_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+APPLICATION_ID STUDENT_ID APPROVED_AT								      EARNED_MILEAGE
+-------------- ---------- --------------------------------------------------------------------------- --------------
+	 1
+가상 해커톤
+	     1		1 26/10/20 10:00:00.000000								 100
+
+	 1
+가상 해커톤
+	     2		1 26/10/20 10:00:00.000000								 300
+
+	 2
+가상 SQL 특강
+	     3		2 26/10/20 10:00:00.000000								  50
+
+	 3
+가상 PBL 발표회
+	     4		3 26/10/20 10:00:00.000000								  80
+
+	 3
+가상 PBL 발표회
+	     5		4 26/10/20 10:00:00.000000								 200
+
+	 3
+가상 PBL 발표회
+	    11		2 26/10/20 10:00:00.000000								  80
+
+
+6 행이 선택되었습니다.
+
+구   7:  AND a.approved_at>=TO_DATE('&from_date','YYYY-MM-DD')
+신   7:  AND a.approved_at>=TO_DATE('2026-10-01','YYYY-MM-DD')
+구   8:  AND a.approved_at<TO_DATE('&to_date_exclusive','YYYY-MM-DD')
+신   8:  AND a.approved_at<TO_DATE('2026-11-01','YYYY-MM-DD')
+
+PROGRAM_ID
+----------
+DETAIL_PROGRAM_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL_MILEAGE APPROVAL_COUNT
+------------- --------------
+	 1
+가상 해커톤
+	  400		   2
+
+	 2
+가상 SQL 특강
+	   50		   1
+
+	 3
+가상 PBL 발표회
+	  360		   3
+
+
+
+APPLICATION_ID STUDENT_ID
+-------------- ----------
+STUDENT_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DETAIL_PROGRAM_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PARTICIPATION_AWARD_TYPE							 APPLIED_MILEAGE APPLIED_AT								     FILE_COUNT
+-------------------------------------------------------------------------------- --------------- --------------------------------------------------------------------------- ----------
+FILE_NAMES
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+STORAGE_PATHS
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	     6		5
+가상학생5
+가상 해커톤
+PARTICIPATION										     100 26/10/15 09:00:00.000000							      2
+demo_6.pdf; extra_demo.pdf
+/virtual/evidence/demo_6.pdf; /virtual/evidence/extra_demo.pdf
+
+	    10		9
+가상학생9
+가상 SQL 특강
+PARTICIPATION										      50 26/10/15 09:00:00.000000							      1
+demo_10.pdf
+/virtual/evidence/demo_10.pdf
+
+
+
+PROJECT_ID PROJECT_BUDGET_ID ITEM_CODE
+---------- ----------------- ------------------------------------------------------------------------------------------------------------------------
+ITEM_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+INITIAL_AMOUNT CURRENT_AMOUNT SPENDING_LIMIT APPROVED_EXPENSE	 BALANCE AVAILABLE_LIMIT EXECUTION_RATE
+-------------- -------------- -------------- ---------------- ---------- --------------- --------------
+	 1		   1 PERSONNEL
+인건비
+       1000000	      1000000	     1000000	       300000	  700000	  700000	     30
+
+	 1		   2 STUDENT_LABOR
+학생인건비
+       2000000	      2000000	     2000000	       600000	 1400000	 1400000	     30
+
+	 1		   3 EQUIPMENT
+연구장비시설비
+       1500000	      1500000	     1500000	       500000	 1000000	 1000000	  33.33
+
+	 1		   4 ACTIVITY
+연구활동비
+       1000000	      1100000	      800000	       100000	 1000000	  700000	   9.09
+
+	 1		   5 MATERIAL
+연구재료비
+	500000	       500000	      500000		    0	  500000	  500000	      0
+
+	 1		   6 ALLOWANCE
+연구수당
+	300000	       300000	      300000		    0	  300000	  300000	      0
+
+	 1		   7 INDIRECT
+간접비
+	     0		    0		   0		    0	       0	       0	      0
+
+
+7 행이 선택되었습니다.
+
+구   1: SELECT * FROM v_budget_summary WHERE project_id=&project_id ORDER BY project_budget_id
+신   1: SELECT * FROM v_budget_summary WHERE project_id=1 ORDER BY project_budget_id
+
+PROJECT_ID PROJECT_BUDGET_ID ITEM_CODE
+---------- ----------------- ------------------------------------------------------------------------------------------------------------------------
+ITEM_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+INITIAL_AMOUNT CURRENT_AMOUNT SPENDING_LIMIT APPROVED_EXPENSE	 BALANCE AVAILABLE_LIMIT EXECUTION_RATE
+-------------- -------------- -------------- ---------------- ---------- --------------- --------------
+	 1		   1 PERSONNEL
+인건비
+       1000000	      1000000	     1000000	       300000	  700000	  700000	     30
+
+	 1		   2 STUDENT_LABOR
+학생인건비
+       2000000	      2000000	     2000000	       600000	 1400000	 1400000	     30
+
+	 1		   3 EQUIPMENT
+연구장비시설비
+       1500000	      1500000	     1500000	       500000	 1000000	 1000000	  33.33
+
+	 1		   4 ACTIVITY
+연구활동비
+       1000000	      1100000	      800000	       100000	 1000000	  700000	   9.09
+
+	 1		   5 MATERIAL
+연구재료비
+	500000	       500000	      500000		    0	  500000	  500000	      0
+
+	 1		   6 ALLOWANCE
+연구수당
+	300000	       300000	      300000		    0	  300000	  300000	      0
+
+	 1		   7 INDIRECT
+간접비
+	     0		    0		   0		    0	       0	       0	      0
+
+
+7 행이 선택되었습니다.
+
+구   5:  WHERE e.status='APPROVED' AND b.project_id=&project_id GROUP BY e.professor_id
+신   5:  WHERE e.status='APPROVED' AND b.project_id=1 GROUP BY e.professor_id
+
+PROFESSOR_ID
+------------
+NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+APPROVED_AMOUNT
+---------------
+	   1
+가상교수A
+	 600000
+
+	   2
+가상교수B
+	 600000
+
+	   3
+가상교수C
+	 300000
+
+
+구   5:  WHERE e.status='APPROVED' AND b.project_id=&project_id GROUP BY e.expense_subject_id
+신   5:  WHERE e.status='APPROVED' AND b.project_id=1 GROUP BY e.expense_subject_id
+
+EXPENSE_SUBJECT_ID
+------------------
+SUBJECT_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+APPROVED_AMOUNT
+---------------
+		 1
+산학협력
+	 700000
+
+		 2
+전공
+	 500000
+
+		 3
+융합
+	 300000
+
+
+구   5: WHERE e.status='APPROVED' AND b.project_id=&project_id
+신   5: WHERE e.status='APPROVED' AND b.project_id=1
+
+PROFESSOR_ID
+------------
+NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+EXPENSE_SUBJECT_ID
+------------------
+SUBJECT_NAME
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+APPROVED_AMOUNT
+---------------
+	   1
+가상교수A
+		 1
+산학협력
+	 200000
+
+	   1
+가상교수A
+		 2
+전공
+	 400000
+
+	   2
+가상교수B
+		 1
+산학협력
+	 500000
+
+	   2
+가상교수B
+		 2
+전공
+	 100000
+
+	   3
+가상교수C
+		 3
+융합
+	 300000
+
+
+구   4: WHERE l.target_type='&target_type' AND l.target_id=&target_id ORDER BY l.processed_at,l.log_id
+신   4: WHERE l.target_type='MILEAGE' AND l.target_id=1 ORDER BY l.processed_at,l.log_id
+
+    LOG_ID
+----------
+TARGET_TYPE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ TARGET_ID ACTION_TYPE														    ACTOR_USER_ID
+---------- ------------------------------------------------------------------------------------------------------------------------ -------------
+LOGIN_ID
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PROCESSED_AT								    OLD_VALUE
+--------------------------------------------------------------------------- --------------------------------------------------------------------------------
+NEW_VALUE
+--------------------------------------------------------------------------------
+REASON
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	28
+MILEAGE
+	 1 SUBMIT															      101
+student_demo_1
+26/10/27 11:59:33.661722
+PENDING
+Student submission
+
+	29
+MILEAGE
+	 1 APPROVED																1
+master_demo
+26/10/27 11:59:33.667585						    PENDING
+APPROVED
+가상 검토 결과
+
+
+
+TARGET_TYPE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ACTION_TYPE														  LOG_COUNT
+------------------------------------------------------------------------------------------------------------------------ ----------
+BUDGET
+UPDATE																  1
+
+EXPENSE
+APPROVED															  7
+
+EXPENSE
+CANCELLED															  1
+
+EXPENSE
+REJECTED															  1
+
+EXPENSE
+SUBMIT																 12
+
+MILEAGE
+APPROVED															  7
+
+MILEAGE
+CANCELLED															  1
+
+MILEAGE
+REJECTED															  2
+
+MILEAGE
+REVOKED 															  1
+
+MILEAGE
+SUBMIT																 12
+
+
+10 행이 선택되었습니다.
+
+
+    LOG_ID
+----------
+TARGET_TYPE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ TARGET_ID ACTION_TYPE														    ACTOR_USER_ID
+---------- ------------------------------------------------------------------------------------------------------------------------ -------------
+LOGIN_ID
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PROCESSED_AT
+---------------------------------------------------------------------------
+OLD_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NEW_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REASON
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 1
+STUDENT_CHANGE_REQUEST
+	 1 SUBMIT															      101
+student_demo_1
+26/10/27 11:59:33.635544
+
+PENDING
+Student change request
+
+	 2
+STUDENT_CHANGE_REQUEST
+	 1 APPROVE																2
+admin_demo
+26/10/27 11:59:33.640550
+mobile_phone=010-0000-0001;email=student1@example.invalid
+mobile_phone=010-1111-0001;email=student1.new@example.invalid
+연락처 확인 완료
+
+	 3
+STUDENT_CHANGE_REQUEST
+	 2 SUBMIT															      102
+student_demo_2
+26/10/27 11:59:33.641065
+
+PENDING
+Student change request
+
+	 4
+STUDENT_CHANGE_REQUEST
+	 2 REJECT																2
+admin_demo
+26/10/27 11:59:33.641113
+PENDING
+REJECTED
+증빙 정보 불일치
+
+	 5
+STUDENT_CHANGE_REQUEST
+	 3 SUBMIT															      103
+student_demo_3
+26/10/27 11:59:33.641339
+
+PENDING
+Student change request
+
+	 6
+STUDENT_CHANGE_REQUEST
+	 4 SUBMIT															      104
+student_demo_4
+26/10/27 11:59:33.641382
+
+PENDING
+Student change request
+
+	 7
+STUDENT_CHANGE_REQUEST
+	 4 APPROVE																1
+master_demo
+26/10/27 11:59:33.642078
+sms_yn=N
+sms_yn=Y
+SMS 수신 동의 확인
+
+	 8
+STUDENT_CHANGE_REQUEST
+	 5 SUBMIT															      105
+student_demo_5
+26/10/27 11:59:33.642134
+
+PENDING
+Student change request
+
+	 9
+STUDENT_CHANGE_REQUEST
+	 5 REJECT																1
+master_demo
+26/10/27 11:59:33.642172
+PENDING
+REJECTED
+본인 확인 자료 부족
+
+	10
+TOPCIT_ROUND
+
+    LOG_ID
+----------
+TARGET_TYPE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ TARGET_ID ACTION_TYPE														    ACTOR_USER_ID
+---------- ------------------------------------------------------------------------------------------------------------------------ -------------
+LOGIN_ID
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PROCESSED_AT
+---------------------------------------------------------------------------
+OLD_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NEW_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REASON
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	 1 CREATE																2
+admin_demo
+26/10/27 11:59:33.646852
+
+2026년 제1회/2026-05-16
+Round registration
+
+	11
+TOPCIT_ROUND
+	 2 CREATE																2
+admin_demo
+26/10/27 11:59:33.646924
+
+2026년 제2회/2026-09-19
+Round registration
+
+	12
+TOPCIT_SCORE
+	 1 CREATE																2
+admin_demo
+26/10/27 11:59:33.648849
+
+600
+Score registration
+
+	13
+TOPCIT_SCORE
+	 2 CREATE																2
+admin_demo
+26/10/27 11:59:33.648896
+
+700
+Score registration
+
+	14
+TOPCIT_SCORE
+	 3 CREATE																2
+admin_demo
+26/10/27 11:59:33.648941
+
+800
+Score registration
+
+	15
+TOPCIT_SCORE
+	 4 CREATE																2
+admin_demo
+26/10/27 11:59:33.648972
+
+500
+Score registration
+
+	16
+TOPCIT_SCORE
+	 5 CREATE																2
+admin_demo
+26/10/27 11:59:33.649001
+
+900
+Score registration
+
+	17
+TOPCIT_SCORE
+	 6 CREATE																2
+admin_demo
+26/10/27 11:59:33.649030
+
+650
+Score registration
+
+	18
+TOPCIT_SCORE
+	 7 CREATE																2
+admin_demo
+26/10/27 11:59:33.649058
+
+750
+Score registration
+
+	19
+TOPCIT_SCORE
+	 8 CREATE																2
+admin_demo
+
+    LOG_ID
+----------
+TARGET_TYPE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ TARGET_ID ACTION_TYPE														    ACTOR_USER_ID
+---------- ------------------------------------------------------------------------------------------------------------------------ -------------
+LOGIN_ID
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PROCESSED_AT
+---------------------------------------------------------------------------
+OLD_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NEW_VALUE
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+REASON
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+26/10/27 11:59:33.649086
+
+550
+Score registration
+
+	20
+TOPCIT_SCORE
+	 9 CREATE																2
+admin_demo
+26/10/27 11:59:33.649113
+
+640
+Score registration
+
+	21
+TOPCIT_SCORE
+	 9 UPDATE																2
+admin_demo
+26/10/27 11:59:33.650493
+640
+650
+채점 정정: 640에서 650으로 변경
+
+	22
+TOPCIT_SCORE
+	10 CREATE																2
+admin_demo
+26/10/27 11:59:33.650559
+
+680
+Score registration
+
+	23
+TOPCIT_SCORE
+	11 CREATE																2
+admin_demo
+26/10/27 11:59:33.650587
+
+800
+Score registration
+
+	24
+TOPCIT_SCORE
+	12 CREATE																2
+admin_demo
+26/10/27 11:59:33.650640
+
+520
+Score registration
+
+	25
+TOPCIT_SCORE
+	13 CREATE																2
+admin_demo
+26/10/27 11:59:33.650667
+
+850
+Score registration
+
+	26
+TOPCIT_SCORE
+	14 CREATE																2
+admin_demo
+26/10/27 11:59:33.650694
+
+600
+Score registration
+
+	27
+TOPCIT_SCORE
+	15 CREATE																2
+admin_demo
+26/10/27 11:59:33.650719
+
+700
+Score registration
+
+
+27 행이 선택되었습니다.
+
+
+트리거가 생성되었습니다.
+
+PASS | Q05 total | expected=810 actual=810
+PASS | Q05 student1 | expected=400 actual=400
+PASS | Q05 no application | expected=0 actual=0
+PASS | Q05 revoked excluded | expected=0 actual=0
+PASS | Q05 zero students | expected=6 actual=6
+PASS | Q06 program1 | expected=400 actual=400
+PASS | Q07 pending applications | expected=2 actual=2
+PASS | Q07 multiple evidence | expected=2 actual=2
+PASS | Q08 seven items | expected=7 actual=7
+PASS | Q08 approved total | expected=1500000 actual=1500000
+PASS | Q08 no approved expense balance | expected=500000 actual=500000
+PASS | Q08 zero budget | expected=0 actual=0
+PASS | Q08 amended budget balance | expected=1000000 actual=1000000
+PASS | Q08 amended budget rate | expected=9.09 actual=9.09
+PASS | Q09 professor1 | expected=600000 actual=600000
+PASS | Q09 industry | expected=700000 actual=700000
+PASS | duplicate student number | expected=-1 actual=-1
+PASS | duplicate login | expected=-1 actual=-1
+PASS | missing program FK | expected=-2291 actual=-2291
+PASS | missing student FK | expected=-2291 actual=-2291
+PASS | negative mileage | expected=-2290 actual=-2290
+PASS | duplicate mileage application | expected=-1 actual=-1
+PASS | duplicate accrual | expected=-1 actual=-1
+PASS | zero expense | expected=-2290 actual=-2290
+PASS | negative expense | expected=-2290 actual=-2290
+PASS | unknown state | expected=-2290 actual=-2290
+PASS | admin cannot approve | expected=-20001 actual=-20001
+PASS | student cannot approve | expected=-20001 actual=-20001
+PASS | repeat mileage approval | expected=-20002 actual=-20002
+PASS | null state transition | expected=-20002 actual=-20002
+PASS | own submission required | expected=-20001 actual=-20001
+PASS | approve adds 100 | expected=100 actual=100
+PASS | approval history | expected=1 actual=1
+PASS | revoke removes 100 | expected=0 actual=0
+PASS | reject creates no accrual | expected=0 actual=0
+PASS | application snapshot | expected=100 actual=100
+PASS | exact limit allowed | expected=0 actual=0
+PASS | over limit rejected | expected=-20003 actual=-20003
+PASS | repeat expense approval | expected=-20002 actual=-20002
+PASS | over limit stays pending | expected=1 actual=1
+PASS | expense approval adds | expected=150000 actual=150000
+PASS | expense cancellation removes | expected=100000 actual=100000
+PASS | limit below approved sum | expected=-20003 actual=-20003
+PASS | limit above budget | expected=-20007 actual=-20007
+PASS | admin cannot change budget | expected=-20001 actual=-20001
+PASS | mileage log failure | expected=-20999 actual=-20999
+PASS | rollback mileage status | expected=1 actual=1
+PASS | rollback mileage accrual | expected=0 actual=0
+PASS | rollback mileage history | expected=0 actual=0
+PASS | expense log failure | expected=-20999 actual=-20999
+PASS | rollback expense status | expected=1 actual=1
+PASS | rollback expense history | expected=0 actual=0
+PASS | budget log failure | expected=-20999 actual=-20999
+PASS | rollback budget amount | expected=1000000 actual=1000000
+PASS | rollback budget history | expected=0 actual=0
+PASS | rollback log count unchanged | expected=72 actual=72
+PASS | accrual consistency | expected=0 actual=0
+ALL TESTS PASSED
+
+PL/SQL 처리가 정상적으로 완료되었습니다.
+
+PASS | three roles | expected=3 actual=3
+PASS | student permissions | expected=3 actual=3
+PASS | ten students | expected=10 actual=10
+PASS | two departments | expected=2 actual=2
+PASS | two grades | expected=2 actual=2
+PASS | five change requests | expected=5 actual=5
+PASS | approved requests | expected=2 actual=2
+PASS | rejected requests | expected=2 actual=2
+PASS | pending requests | expected=1 actual=1
+PASS | two TOPCIT rounds | expected=2 actual=2
+PASS | fifteen TOPCIT scores | expected=15 actual=15
+PASS | Q01 own profile allowed | expected=1 actual=1
+PASS | Q01 admin profile allowed | expected=1 actual=1
+PASS | Q01 master profile allowed | expected=1 actual=1
+PASS | Q01 other student blocked | expected=-20001 actual=-20001
+PASS | Q01 expected current phone | expected=1 actual=1
+PASS | duplicate student number rejected | expected=-1 actual=-1
+PASS | duplicate student failure keeps existing data | expected=10 actual=10
+PASS | duplicate login rejected | expected=-1 actual=-1
+PASS | duplicate login failure keeps existing data | expected=12 actual=12
+PASS | missing role rejected | expected=-2291 actual=-2291
+PASS | missing department rejected | expected=-2291 actual=-2291
+PASS | missing TOPCIT student rejected | expected=-2291 actual=-2291
+PASS | missing TOPCIT round rejected | expected=-2291 actual=-2291
+PASS | duplicate student round rejected | expected=-1 actual=-1
+PASS | duplicate TOPCIT failure keeps existing data | expected=15 actual=15
+PASS | TOPCIT below minimum rejected | expected=-2290 actual=-2290
+PASS | TOPCIT above maximum rejected | expected=-2290 actual=-2290
+PASS | fractional TOPCIT direct input rejected | expected=-2290 actual=-2290
+PASS | fractional TOPCIT package registration rejected | expected=-20016 actual=-20016
+PASS | fractional registration keeps score rows | expected=15 actual=15
+PASS | fractional registration keeps log rows | expected=72 actual=72
+PASS | package TOPCIT below minimum rejected | expected=-20016 actual=-20016
+PASS | package TOPCIT above maximum rejected | expected=-20016 actual=-20016
+PASS | invalid registrations keep score rows | expected=15 actual=15
+PASS | invalid registrations keep log rows | expected=72 actual=72
+PASS | TOPCIT minimum accepted | expected=0 actual=0
+PASS | TOPCIT registration log matches stored score | expected=1 actual=1
+PASS | TOPCIT maximum accepted | expected=1000 actual=1000
+PASS | pending request keeps base data | expected=student3@example.invalid actual=student3@example.invalid
+PASS | Q02 approved request details | expected=2 actual=2
+PASS | approval changes base data | expected=student3.pending@example.invalid actual=student3.pending@example.invalid
+PASS | approval metadata | expected=1 actual=1
+PASS | approval change log | expected=1 actual=1
+PASS | rejection keeps base data | expected=student3@example.invalid actual=student3@example.invalid
+PASS | rejection metadata | expected=1 actual=1
+PASS | rejection change log | expected=1 actual=1
+PASS | approved request cannot be processed again | expected=-20011 actual=-20011
+PASS | rejected request cannot be processed again | expected=-20011 actual=-20011
+PASS | student status current value updated | expected=LEAVE actual=LEAVE
+PASS | student status history inserted | expected=1 actual=1
+PASS | student status change date synchronized | expected=1 actual=1
+PASS | student status change log inserted | expected=1 actual=1
+PASS | same student status rejected | expected=-20019 actual=-20019
+PASS | missing student status target rejected | expected=-20017 actual=-20017
+PASS | unknown student status code rejected | expected=-20018 actual=-20018
+PASS | student status change permission denied | expected=-20001 actual=-20001
+PASS | student status log failure | expected=-20999 actual=-20999
+PASS | rollback student status current value | expected=1 actual=1
+PASS | rollback student status history | expected=0 actual=0
+PASS | rollback student status log | expected=72 actual=72
+PASS | Q03 student1 score change | expected=50 actual=50
+PASS | Q03 first previous score null | expected=1 actual=1
+PASS | Q04 expected average and count | expected=1 actual=1
+PASS | fractional TOPCIT update rejected | expected=-20016 actual=-20016
+PASS | fractional update keeps stored score | expected=680 actual=680
+PASS | fractional update keeps log rows | expected=72 actual=72
+PASS | TOPCIT score updated | expected=690 actual=690
+PASS | TOPCIT update change log | expected=1 actual=1
+PASS | same TOPCIT score rejected | expected=-20014 actual=-20014
+PASS | Q12 student request logs | expected=9 actual=9
+PASS | Q12 TOPCIT round logs | expected=2 actual=2
+PASS | Q12 TOPCIT score logs | expected=16 actual=16
+PASS | student approval log failure | expected=-20999 actual=-20999
+PASS | rollback student base data | expected=1 actual=1
+PASS | rollback student request state | expected=1 actual=1
+PASS | rollback student log count | expected=73 actual=73
+PASS | TOPCIT update log failure | expected=-20999 actual=-20999
+PASS | rollback TOPCIT score | expected=680 actual=680
+PASS | rollback TOPCIT log count | expected=72 actual=72
+STUDENT/TOPCIT TESTS PASSED
+
+PL/SQL 처리가 정상적으로 완료되었습니다.
+
+
+트리거가 삭제되었습니다.
+
+DEMO COMPLETED

@@ -275,7 +275,8 @@ END pbl_workflow;
 CREATE OR REPLACE VIEW v_student_profile AS
 SELECT s.student_id,s.student_no,s.student_name,u.user_id,u.login_id,
  c.college_id,c.college_name,d.department_id,d.department_name,d.track_type,d.campus,
- s.grade,sc.status_code,sc.status_name,ac.admission_type_code,ac.admission_type_name,
+ s.grade,sc.status_code,sc.status_name,s.status_changed_at,
+ ac.admission_type_code,ac.admission_type_name,
  s.admission_date,s.mobile_phone,s.sms_yn,s.email
 FROM student s
 JOIN user_account u ON u.user_id=s.user_id
@@ -298,6 +299,8 @@ CREATE OR REPLACE PACKAGE student_topcit_workflow AS
   p_actor NUMBER,p_student NUMBER,p_mobile_phone VARCHAR2,p_email VARCHAR2,p_sms_yn CHAR,p_id OUT NUMBER);
  PROCEDURE process_student_change(
   p_actor NUMBER,p_request NUMBER,p_action VARCHAR2,p_comment VARCHAR2);
+ PROCEDURE change_student_status(
+  p_actor NUMBER,p_student NUMBER,p_new_status VARCHAR2,p_reason VARCHAR2);
  PROCEDURE create_topcit_round(
   p_actor NUMBER,p_round_name VARCHAR2,p_exam_date DATE,p_id OUT NUMBER);
  PROCEDURE register_topcit_score(
@@ -350,6 +353,13 @@ CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
  BEGIN
   INSERT INTO change_log(actor_user_id,target_type,target_id,action_type,old_value,new_value,reason)
   VALUES(p_actor,p_type,p_id,p_action,p_old,p_new,p_reason);
+ END;
+
+ PROCEDURE validate_topcit_score(p_score NUMBER) IS
+ BEGIN
+  IF p_score IS NULL OR p_score<0 OR p_score>1000 OR p_score<>TRUNC(p_score) THEN
+   RAISE_APPLICATION_ERROR(-20016,'TOPCIT score must be an integer from 0 to 1000');
+  END IF;
  END;
 
  PROCEDURE request_student_change(
@@ -473,6 +483,59 @@ CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
    RAISE;
  END;
 
+ PROCEDURE change_student_status(
+  p_actor NUMBER,p_student NUMBER,p_new_status VARCHAR2,p_reason VARCHAR2) IS
+  v_old_status student.status_code%TYPE;
+  v_valid_status student_status_code.status_code%TYPE;
+  v_changed_at TIMESTAMP;
+ BEGIN
+  SAVEPOINT student_status_change;
+  require_admin(p_actor);
+  IF TRIM(p_reason) IS NULL THEN
+   RAISE_APPLICATION_ERROR(-20004,'Change reason is required');
+  END IF;
+
+  BEGIN
+   SELECT status_code INTO v_old_status
+   FROM student WHERE student_id=p_student FOR UPDATE;
+  EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+    RAISE_APPLICATION_ERROR(-20017,'Target student does not exist');
+  END;
+
+  BEGIN
+   SELECT status_code INTO v_valid_status
+   FROM student_status_code
+   WHERE status_code=p_new_status AND is_active='Y';
+  EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+    RAISE_APPLICATION_ERROR(-20018,'Active student status code does not exist');
+  END;
+
+  IF v_old_status=v_valid_status THEN
+   RAISE_APPLICATION_ERROR(-20019,'New student status equals current status');
+  END IF;
+
+  v_changed_at:=SYSTIMESTAMP;
+  UPDATE student
+  SET status_code=v_valid_status,status_changed_at=v_changed_at
+  WHERE student_id=p_student;
+
+  INSERT INTO student_status_history(
+   student_id,old_status_code,new_status_code,changed_by,change_date,change_reason
+  ) VALUES(
+   p_student,v_old_status,v_valid_status,p_actor,v_changed_at,p_reason
+  );
+
+  log_change(
+   p_actor,'STUDENT',p_student,'STATUS_CHANGE',v_old_status,v_valid_status,p_reason
+  );
+ EXCEPTION
+  WHEN OTHERS THEN
+   ROLLBACK TO student_status_change;
+   RAISE;
+ END;
+
  PROCEDURE create_topcit_round(
   p_actor NUMBER,p_round_name VARCHAR2,p_exam_date DATE,p_id OUT NUMBER) IS
  BEGIN
@@ -486,29 +549,35 @@ CREATE OR REPLACE PACKAGE BODY student_topcit_workflow AS
 
  PROCEDURE register_topcit_score(
   p_actor NUMBER,p_student NUMBER,p_round NUMBER,p_score NUMBER,p_remark VARCHAR2,p_id OUT NUMBER) IS
+  v_stored_score topcit_score.total_score%TYPE;
  BEGIN
   SAVEPOINT topcit_score_create;
   require_admin(p_actor);
+  validate_topcit_score(p_score);
   INSERT INTO topcit_score(student_id,round_id,total_score,created_by,remark)
-  VALUES(p_student,p_round,p_score,p_actor,p_remark) RETURNING score_id INTO p_id;
-  log_change(p_actor,'TOPCIT_SCORE',p_id,'CREATE',NULL,TO_CHAR(p_score),'Score registration');
+  VALUES(p_student,p_round,p_score,p_actor,p_remark)
+  RETURNING score_id,total_score INTO p_id,v_stored_score;
+  log_change(p_actor,'TOPCIT_SCORE',p_id,'CREATE',NULL,TO_CHAR(v_stored_score),'Score registration');
  EXCEPTION WHEN OTHERS THEN ROLLBACK TO topcit_score_create; RAISE;
  END;
 
  PROCEDURE update_topcit_score(
   p_actor NUMBER,p_score_id NUMBER,p_new_score NUMBER,p_remark VARCHAR2) IS
   v_old topcit_score.total_score%TYPE;
+  v_stored_score topcit_score.total_score%TYPE;
  BEGIN
   SAVEPOINT topcit_score_update;
   require_admin(p_actor);
+  validate_topcit_score(p_new_score);
   SELECT total_score INTO v_old FROM topcit_score WHERE score_id=p_score_id FOR UPDATE;
   IF v_old=p_new_score THEN
    RAISE_APPLICATION_ERROR(-20014,'New TOPCIT score equals current score');
   END IF;
   UPDATE topcit_score
   SET total_score=p_new_score,updated_by=p_actor,updated_at=SYSTIMESTAMP,remark=p_remark
-  WHERE score_id=p_score_id;
-  log_change(p_actor,'TOPCIT_SCORE',p_score_id,'UPDATE',TO_CHAR(v_old),TO_CHAR(p_new_score),p_remark);
+  WHERE score_id=p_score_id
+  RETURNING total_score INTO v_stored_score;
+  log_change(p_actor,'TOPCIT_SCORE',p_score_id,'UPDATE',TO_CHAR(v_old),TO_CHAR(v_stored_score),p_remark);
  EXCEPTION WHEN OTHERS THEN ROLLBACK TO topcit_score_update; RAISE;
  END;
 
@@ -531,6 +600,7 @@ END student_topcit_workflow;
 /
 
 -- 학생이 직접 요청 가능한 필드는 연락처, 이메일, SMS 수신 여부로 제한한다.
--- 학과·학적·입학 정보 변경은 관리자 전용 후속 정책이며 직접 DML을 허용하지 않는 운영 권한 분리가 필요하다.
+-- 학적상태는 관리자 전용 CHANGE_STUDENT_STATUS로 현재값·이력·공통로그를 함께 처리한다.
+-- 학과·입학 정보 변경과 직접 DML 차단은 별도 운영 권한 분리가 필요하다.
 -- 두 패키지는 COMMIT하지 않는다. 호출자가 업무 성공 시 COMMIT하고 실패 시 ROLLBACK한다.
 -- END STUDENT_AND_TOPCIT

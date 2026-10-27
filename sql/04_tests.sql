@@ -138,6 +138,9 @@ DECLARE
  v_score_id NUMBER;
  v_request_id NUMBER;
  v_text VARCHAR2(4000);
+ v_history_before NUMBER;
+ v_log_before NUMBER;
+ v_status_changed_before TIMESTAMP;
  v_rc SYS_REFCURSOR;
 
  PROCEDURE eq(p_name VARCHAR2,p_actual NUMBER,p_expected NUMBER) IS
@@ -233,10 +236,33 @@ BEGIN
   q'[INSERT INTO topcit_score(student_id,round_id,total_score,created_by) VALUES(9,1,-1,2)]',-2290);
  error_is('TOPCIT above maximum rejected',
   q'[INSERT INTO topcit_score(student_id,round_id,total_score,created_by) VALUES(10,1,1001,2)]',-2290);
+ error_is('fractional TOPCIT direct input rejected',
+  q'[INSERT INTO topcit_score(student_id,round_id,total_score,created_by) VALUES(9,1,680.1,2)]',-2290);
+
+ SELECT COUNT(*) INTO v_before FROM topcit_score;
+ SELECT COUNT(*) INTO v_log_before FROM change_log;
+ error_is('fractional TOPCIT package registration rejected',
+  q'[DECLARE v NUMBER; BEGIN student_topcit_workflow.register_topcit_score(2,9,1,680.1,'fractional score',v); END;]',-20016);
+ SELECT COUNT(*) INTO v_after FROM topcit_score;
+ eq('fractional registration keeps score rows',v_after,v_before);
+ SELECT COUNT(*) INTO v_n FROM change_log;
+ eq('fractional registration keeps log rows',v_n,v_log_before);
+ error_is('package TOPCIT below minimum rejected',
+  q'[DECLARE v NUMBER; BEGIN student_topcit_workflow.register_topcit_score(2,9,1,-1,'below minimum',v); END;]',-20016);
+ error_is('package TOPCIT above maximum rejected',
+  q'[DECLARE v NUMBER; BEGIN student_topcit_workflow.register_topcit_score(2,10,1,1001,'above maximum',v); END;]',-20016);
+ SELECT COUNT(*) INTO v_after FROM topcit_score;
+ eq('invalid registrations keep score rows',v_after,v_before);
+ SELECT COUNT(*) INTO v_n FROM change_log;
+ eq('invalid registrations keep log rows',v_n,v_log_before);
 
  SAVEPOINT topcit_boundary_cases;
  student_topcit_workflow.register_topcit_score(2,9,1,0,'minimum boundary',v_score_id);
  SELECT total_score INTO v_n FROM topcit_score WHERE score_id=v_score_id; eq('TOPCIT minimum accepted',v_n,0);
+ SELECT COUNT(*) INTO v_n FROM change_log
+  WHERE target_type='TOPCIT_SCORE' AND target_id=v_score_id AND action_type='CREATE'
+   AND DBMS_LOB.SUBSTR(new_value,100,1)='0';
+ eq('TOPCIT registration log matches stored score',v_n,1);
  ROLLBACK TO topcit_boundary_cases;
  SAVEPOINT topcit_boundary_cases_max;
  student_topcit_workflow.register_topcit_score(2,10,1,1000,'maximum boundary',v_score_id);
@@ -280,6 +306,49 @@ BEGIN
  error_is('rejected request cannot be processed again',
   q'[BEGIN student_topcit_workflow.process_student_change(2,2,'APPROVED','repeat'); END;]',-20011);
 
+ -- 관리자 학적 변경은 현재값·이력·공통로그를 한 트랜잭션으로 처리한다.
+ SAVEPOINT change_student_status_case;
+ student_topcit_workflow.change_student_status(2,2,'LEAVE','test leave of absence');
+ SELECT status_code INTO v_text FROM student WHERE student_id=2;
+ text_eq('student status current value updated',v_text,'LEAVE');
+ SELECT COUNT(*) INTO v_n FROM student_status_history
+  WHERE student_id=2 AND old_status_code='ENROLLED' AND new_status_code='LEAVE'
+   AND changed_by=2 AND change_reason='test leave of absence';
+ eq('student status history inserted',v_n,1);
+ SELECT COUNT(*) INTO v_n
+ FROM student s JOIN student_status_history h
+  ON h.student_id=s.student_id AND h.change_date=s.status_changed_at
+ WHERE s.student_id=2 AND h.old_status_code='ENROLLED' AND h.new_status_code='LEAVE';
+ eq('student status change date synchronized',v_n,1);
+ SELECT COUNT(*) INTO v_n FROM change_log
+  WHERE target_type='STUDENT' AND target_id=2 AND action_type='STATUS_CHANGE'
+   AND DBMS_LOB.SUBSTR(old_value,100,1)='ENROLLED'
+   AND DBMS_LOB.SUBSTR(new_value,100,1)='LEAVE';
+ eq('student status change log inserted',v_n,1);
+ ROLLBACK TO change_student_status_case;
+
+ error_is('same student status rejected',
+  q'[BEGIN student_topcit_workflow.change_student_status(2,2,'ENROLLED','same status'); END;]',-20019);
+ error_is('missing student status target rejected',
+  q'[BEGIN student_topcit_workflow.change_student_status(2,999,'LEAVE','missing student'); END;]',-20017);
+ error_is('unknown student status code rejected',
+  q'[BEGIN student_topcit_workflow.change_student_status(2,2,'UNKNOWN','bad status'); END;]',-20018);
+ error_is('student status change permission denied',
+  q'[BEGIN student_topcit_workflow.change_student_status(102,2,'LEAVE','unauthorized'); END;]',-20001);
+
+ SELECT COUNT(*) INTO v_history_before FROM student_status_history;
+ SELECT COUNT(*) INTO v_log_before FROM change_log;
+ SELECT status_changed_at INTO v_status_changed_before FROM student WHERE student_id=2;
+ error_is('student status log failure',
+  q'[BEGIN student_topcit_workflow.change_student_status(2,2,'LEAVE','TEST_FAIL_LOG'); END;]',-20999,TRUE);
+ SELECT COUNT(*) INTO v_n FROM student
+  WHERE student_id=2 AND status_code='ENROLLED' AND status_changed_at=v_status_changed_before;
+ eq('rollback student status current value',v_n,1);
+ SELECT COUNT(*) INTO v_n FROM student_status_history;
+ eq('rollback student status history',v_n,v_history_before);
+ SELECT COUNT(*) INTO v_n FROM change_log;
+ eq('rollback student status log',v_n,v_log_before);
+
  -- Q03, Q04 및 TOPCIT 수정 로그.
  SELECT score_change INTO v_n FROM v_topcit_score_change WHERE student_id=1 AND round_id=2;
  eq('Q03 student1 score change',v_n,50);
@@ -293,6 +362,14 @@ BEGIN
  eq('Q04 expected average and count',v_n,1);
 
  SELECT score_id INTO v_score_id FROM topcit_score WHERE student_id=2 AND round_id=2;
+ SELECT COUNT(*) INTO v_log_before FROM change_log;
+ error_is('fractional TOPCIT update rejected',
+  'BEGIN student_topcit_workflow.update_topcit_score(2,'||v_score_id||',680.1,''fractional update''); END;',-20016);
+ SELECT total_score INTO v_n FROM topcit_score WHERE score_id=v_score_id;
+ eq('fractional update keeps stored score',v_n,680);
+ SELECT COUNT(*) INTO v_n FROM change_log;
+ eq('fractional update keeps log rows',v_n,v_log_before);
+
  SAVEPOINT update_topcit_case;
  student_topcit_workflow.update_topcit_score(2,v_score_id,690,'test score correction');
  SELECT total_score INTO v_n FROM topcit_score WHERE score_id=v_score_id; eq('TOPCIT score updated',v_n,690);
