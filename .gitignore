@@ -6,3 +6,4 @@
 connections*.json
 local/
 tmp/
+node_modules/

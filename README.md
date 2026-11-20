@@ -1,7 +1,7 @@
 # PBL 미션 2 Oracle 데이터베이스 구현
 
 Oracle AI Database 26ai Free와 SQL Developer의 스크립트 실행(F5)을 기준으로 한 팀 통합 실습 저장소다.
-현재 `jinseo` 브랜치는 마일리지·예산, 학생 인적사항·TOPCIT, 프로그램 만족도 구현을 통합한 상태다.
+현재 통합본은 마일리지·예산, 학생 인적사항·TOPCIT, 프로그램 만족도 구현을 포함한다.
 
 ## 공유 문서용 보고서
 
@@ -17,9 +17,11 @@ Oracle AI Database 26ai Free와 SQL Developer의 스크립트 실행(F5)을 기�
 - 공통 변경로그와 처리자 추적
 - 학생 본인 조회 범위를 검사하는 패키지 기반 조회
 - Q01~Q12
-- 마일리지 신청·적립과 예산·지출 기능은 기존 구현을 그대로 포함
+- 마일리지 신청·적립과 예산·지출 기능
+- 예산항목별 실제 수입, 승인 지출, 실제 지급 및 통합 거래 조회
+- 예산항목별 수입·지출 상세, 예산 잔액·실제 자금 잔액, 복합 필터를 보여 주는 웹 프로토타입
 
-웹 화면, 실제 로그인, 실제 개인정보, 파일 업로드, Python 애플리케이션, 운영 배포는 범위에서 제외한다.
+실제 로그인, 실제 개인정보, 파일 업로드 및 운영 배포는 범위에서 제외한다.
 
 ## 환경과 접속 전제
 
@@ -38,13 +40,15 @@ Oracle AI Database 26ai Free와 SQL Developer의 스크립트 실행(F5)을 기�
 |---:|---|---|
 | 1 | `sql/fixtures/00_common_fixture.sql` | 단독 검증용 공통·학생·TOPCIT DDL 17개 |
 | 2 | `sql/01_schema.sql` | 마일리지·예산 DDL과 전체 업무 패키지·뷰 |
-| 3 | `sql/03_satisfaction_schema.sql` | 만족도 테이블·결과 뷰·권한 확인/업무 처리 패키지 |
-| 4 | `sql/02_seed.sql` | 공통 역할·학생·TOPCIT 및 마일리지·예산 가상 데이터 |
-| 5 | `sql/03_satisfaction_seed.sql` | 만족도 권한 부여와 가상 조사·응답 데이터 |
-| 6 | `sql/03_queries.sql` | Q01~Q09와 Q12, 입력조건·예상값 |
-| 7 | `sql/06_satisfaction_queries.sql` | Q10/Q11과 만족도 공통로그 조회 |
-| 8 | `sql/04_tests.sql` | 학생·TOPCIT·마일리지·예산 오류·경계·권한·로그·롤백 자동 검증 |
-| 9 | `sql/07_satisfaction_tests.sql` | 만족도 집계·권한·마감·빈 답변·답변 변경이력 검증 |
+| 3 | `sql/08_budget_cashflow_migration.sql` | 수입·실제 지급 구조, 통합 거래 뷰와 업무 패키지 |
+| 4 | `sql/03_satisfaction_schema.sql` | 만족도 테이블·결과 뷰·권한 확인/업무 처리 패키지 |
+| 5 | `sql/02_seed.sql` | 공통 역할·학생·TOPCIT 및 마일리지·예산 가상 데이터 |
+| 6 | `sql/03_satisfaction_seed.sql` | 만족도 권한 부여와 가상 조사·응답 데이터 |
+| 7 | `sql/03_queries.sql` | Q01~Q09와 Q12, 입력조건·예상값 |
+| 8 | `sql/06_satisfaction_queries.sql` | Q10/Q11과 만족도 공통로그 조회 |
+| 9 | `sql/04_tests.sql` | 학생·TOPCIT·마일리지·예산 오류·경계·권한·로그·롤백 자동 검증 |
+| 10 | `sql/07_satisfaction_tests.sql` | 만족도 집계·권한·마감·빈 답변·답변 변경이력 검증 |
+| 11 | `sql/09_budget_cashflow_tests.sql` | 수입·지급·현금잔액·통합거래 조회와 롤백 검증 |
 | 선택 | `sql/05_workflow_examples.sql` | 기존 마일리지·지출 승인 전후 시연 |
 
 학생·TOPCIT 수작업 예상값과 필수 검증 대응은 [`docs/학생_TOPCIT_구현및검증.md`](docs/%ED%95%99%EC%83%9D_TOPCIT_%EA%B5%AC%ED%98%84%EB%B0%8F%EA%B2%80%EC%A6%9D.md)에 정리했다.
@@ -94,6 +98,25 @@ DDL은 암묵적으로 커밋되므로 전체 생성 스크립트는 빈 전용 
 이 방식은 실습용 패키지 경로의 접근 범위를 검증한다. 같은 스키마에 직접 테이블 `SELECT`·DML 권한이 있으면 우회할 수 있으므로 운영 환경에서는 역할별 DB 사용자, 제한 뷰, 프로시저 실행 권한만 부여하는 구성이 추가로 필요하다. 실제 로그인 신원과 `p_actor` 값의 연결은 이번 범위에 포함하지 않는다.
 
 학생 승인·반려·학적 변경과 TOPCIT 등록·수정은 업무 데이터와 `CHANGE_LOG`를 하나의 트랜잭션에서 처리한다. 로그 기록 실패 시 패키지 내부 SAVEPOINT로 해당 호출의 변경을 되돌리며, 최종 COMMIT/ROLLBACK은 호출자가 결정한다.
+
+## 예산 수입·실제 지급 정책
+
+- 기존 `EXPENSE.status`는 지출 승인 상태로 유지한다.
+- `EXPENSE.payment_status`는 실제 지급 추적 여부와 지급 완료 여부를 별도로 관리한다.
+- 기존 지출 행은 마이그레이션 시 `UNTRACKED`가 되며 실제 지급액을 임의로 0원 처리하지 않는다.
+- 실제 수입은 `INCOME`에 저장하고 `RECEIVED` 상태만 총수입에 포함한다.
+- 예산 잔액은 현재 예산에서 승인 지출을 차감하며, 실제 자금 잔액은 실제 입금액에서 지급 완료액을 차감한다.
+- 수입 데이터 또는 지급 추적 데이터가 없으면 실제 자금 잔액은 `NULL`이며 화면에서 `미집계`로 표시한다.
+- `V_BUDGET_TRANSACTION`은 수입과 지출을 통합 조회하되 원본 테이블을 변경하지 않는다.
+- 수입 처리와 지급상태 변경은 `BUDGET_CASHFLOW_WORKFLOW`에서 기능권한과 로그를 검사하고 동일 트랜잭션으로 처리한다.
+- 읽기 전용 API의 실행 방법은 [`api/README.md`](api/README.md)에 정리한다.
+
+## 웹 프로토타입 공유
+
+- 파일: [`prototype/lecture-admin-service.html`](prototype/lecture-admin-service.html)
+- 파일을 브라우저에서 열면 전체 포털과 예산·지출 통합 상세 화면을 확인할 수 있다.
+- Oracle API를 연결하려면 `api/server.mjs`를 HTTPS 환경에서 실행한 뒤 `?budgetApi=https://API주소`를 프로토타입 URL에 추가한다.
+- API를 연결하지 않으면 기존 지출 예시만 표시하고, 실제 수입·지급 금액은 임의로 0원 처리하지 않고 `미집계`로 표시한다.
 
 ## 테스트 데이터 규모
 
@@ -160,3 +183,4 @@ DDL은 암묵적으로 커밋되므로 전체 생성 스크립트는 빈 전용 
 - 결과: PASS 155개, `ALL TESTS PASSED`, `STUDENT/TOPCIT TESTS PASSED`, `SATISFACTION TESTS PASSED`, `DEMO COMPLETED` 확인함
 - 객체: 테이블 33개, 뷰 6개, 패키지 3개와 본문 3개 모두 VALID, `USER_ERRORS=0`임
 - 통합 실행 원문: `verification/integrated-oracle-validation-2026-10-27.txt`에 저장함
+- 2026-11-20에 추가한 수입·실제 지급 마이그레이션과 API는 정적 검사를 통과함. 로컬 Podman `gvproxy` 시작 오류로 인해 `sql/09_budget_cashflow_tests.sql`의 Oracle 실행 결과는 아직 확정하지 않음.

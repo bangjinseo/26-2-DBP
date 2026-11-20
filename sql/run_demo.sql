@@ -7,6 +7,7 @@ SET SERVEROUTPUT ON
 ALTER SESSION SET TIME_ZONE = '+09:00';
 @@fixtures/00_common_fixture.sql
 @@01_schema.sql
+@@08_budget_cashflow_migration.sql
 @@03_satisfaction_schema.sql
 DECLARE v NUMBER;
 BEGIN
@@ -20,4 +21,5 @@ END;
 @@06_satisfaction_queries.sql
 @@04_tests.sql
 @@07_satisfaction_tests.sql
+@@09_budget_cashflow_tests.sql
 PROMPT DEMO COMPLETED
